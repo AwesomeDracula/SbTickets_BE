@@ -9,6 +9,7 @@ public class Driver {
     private Long id;
     private String name;
     private int age;
+    private int cmt;
 
     public Driver(){
 
