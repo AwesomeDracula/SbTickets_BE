@@ -1,20 +1,126 @@
 package com.example.sbtickets.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
+import java.util.Date;
 
-@Getter
-@Setter
+@Entity
+@Table(name = "Driver")
 public class Driver {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "salary_id")
+    private Integer salaryId;
+    @Column(name = "cmt")
+    private String nationalId;
+    @Column(name = "driver_name")
     private String name;
+    @Column(name = "code_license")
+    private String codeLicense;
+    @Column(name = "type_license")
+    private String typeLicense;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "dob")
+    private Date dob;
+    @Column(name = "senority")
+    private Integer seniority;
+    @Column(name = "image")
+    private String image;
 
-    public Driver(){
-
+    public Driver() {
     }
 
-    public Driver(Long id, String name) {
-        this.id = id;
+    public Driver(Integer salaryId, String nationalId, String name, String codeLicense, String typeLicense, String address, Date dob, Integer seniority, String image) {
+        this.salaryId = salaryId;
+        this.nationalId = nationalId;
         this.name = name;
+        this.codeLicense = codeLicense;
+        this.typeLicense = typeLicense;
+        this.address = address;
+        this.dob = dob;
+        this.seniority = seniority;
+        this.image = image;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getSalaryId() {
+        return salaryId;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCodeLicense() {
+        return codeLicense;
+    }
+
+    public String getTypeLicense() {
+        return typeLicense;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public Integer getSeniority() {
+        return seniority;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setSalaryId(Integer salaryId) {
+        this.salaryId = salaryId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCodeLicense(String codeLicense) {
+        this.codeLicense = codeLicense;
+    }
+
+    public void setTypeLicense(String typeLicense) {
+        this.typeLicense = typeLicense;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public void setSeniority(Integer seniority) {
+        this.seniority = seniority;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

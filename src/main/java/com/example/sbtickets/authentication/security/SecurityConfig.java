@@ -36,10 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return super.authenticationManager();
     }
     protected void configure(HttpSecurity http) throws Exception {
-        // Disable crsf cho đường dẫn /rest/**
-        http.csrf().ignoringAntMatchers(UrlConst.HOME);
+        // Disable crsf cho đường dẫn /Sbtickets/**
+        http.csrf().ignoringAntMatchers("/Sbtickets/**");
         http.authorizeRequests().antMatchers("/Sbtickets/login**").permitAll();
-        http.antMatcher(UrlConst.HOME).httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
+        http.antMatcher("/Sbtickets/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/Sbtickets/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/Sbtickets/**").access("hasRole('ROLE_ADMIN')")
