@@ -30,4 +30,10 @@ public class UrlConst {
      * API find name Driver CuongNv
      */
     public static final String FIND_DRIVER = HOME + "/findDriver";
+
+    public static final String CREATE_DRIVER = HOME + "/createDriver";
+
+    public static final String UPDATE_DRIVER = HOME + "/updateDriver/{id}";
+
+    public static final String DELETE_DRIVER = HOME + "/deleteDriver/{id}";
 }
