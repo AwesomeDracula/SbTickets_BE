@@ -21,6 +21,7 @@ public class DriverController {
     @Autowired
     DriverService driverService;
 
+
     @RequestMapping(value = UrlConst.GET_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<List<Driver>> getDriver() {
         List<Driver> result = new ArrayList<>();
