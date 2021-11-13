@@ -20,7 +20,7 @@ public class BusService implements BusImplement {
     }
 
     @Override
-    public Bus findBus(String name) {
+    public Bus findBus(Integer carNumber) {
         return null;
     }
 

@@ -104,10 +104,10 @@ public class BusController {
     }
 
     @RequestMapping(value = UrlConst.FIND_BUS, method = RequestMethod.GET)
-    public ResponseEntity<Bus> findBus(@RequestBody String name) {
+    public ResponseEntity<Bus> findBus(@RequestBody Integer carNumber) {
         Bus result = new Bus();
         try {
-            result = busService.findBus(name);
+            result = busService.findBus(carNumber);
         }
         catch (Exception ex){
             return new ResponseEntity<Bus>(result, HttpStatus.FAILED_DEPENDENCY);
