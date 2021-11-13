@@ -36,4 +36,6 @@ public class UrlConst {
     public static final String UPDATE_DRIVER = HOME + "/updateDriver/{id}";
 
     public static final String DELETE_DRIVER = HOME + "/deleteDriver/{id}";
+
+    public static final String EXPORT_EXCEL_ALL_DRIVER = HOME + "/driver/excelAll";
 }

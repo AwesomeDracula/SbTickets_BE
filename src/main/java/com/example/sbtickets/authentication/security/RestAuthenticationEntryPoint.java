@@ -1,5 +1,9 @@
 package com.example.sbtickets.authentication.security;
 
+import com.example.sbtickets.bean.AuthenticationBean;
+import com.example.sbtickets.bean.WrapperResponse;
+import net.minidev.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.naming.AuthenticationException;
@@ -9,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException {
-//    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("Unauthorized");
-    }
-
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, org.springframework.security.core.AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpServletResponse.getWriter().write("Unauthorized");
+        JSONObject json = new JSONObject();
+        json.put("status", HttpStatus.BAD_REQUEST.value());
+        json.put("body", null);
+        json.put("msg", "Unauthorized");
+        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.getWriter().write(json.toString());
+        httpServletResponse.getWriter().flush();
     }
 }
