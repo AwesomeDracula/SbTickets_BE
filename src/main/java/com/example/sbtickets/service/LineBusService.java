@@ -36,7 +36,7 @@ public class LineBusService implements LineBusImplement{
     public void updateLineBus(Integer id, LineBus lineBus) {
         Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
         LineBus foundLineBus = dbLineBus.get();
-        foundLineBus.setId(lineBus.getId());
+        foundLineBus.setId(id);
         foundLineBus.setFirstPoint(lineBus.getFirstPoint());
         foundLineBus.setLastPoint(lineBus.getLastPoint());
         foundLineBus.setLength(lineBus.getLength());

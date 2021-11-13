@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "LineBus")
+@Table(name = "line_bus")
 public class LineBus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "firstPoint")
+    @Column(name = "first_point")
     private String firstPoint;
-    @Column(name = "lastPoint")
+    @Column(name = "last_point")
     private String lastPoint;
     @Column(name = "length")
     private Integer length;
@@ -23,10 +23,10 @@ public class LineBus {
 
     }
 
-    public LineBus(Integer id, String firtsPoint, String lastPoint, Integer length, Integer complexity)
+    public LineBus(Integer id, String firstPoint, String lastPoint, Integer length, Integer complexity)
     {
         this.id = id;
-        this.firstPoint = firtsPoint;
+        this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
         this.length = length;
         this.complexity = complexity;

@@ -40,7 +40,7 @@ public class UrlConst {
     /**
      * API find name Line Bus HaLv
      */
-    public static final String GET_LINE_BUS = HOME + "/findLineBus";
+    public static final String GET_LINE_BUS = HOME + "/getLineBus";
 
     public static final String FIND_LINE_BUS = HOME + "/findLineBus";
 
