@@ -9,25 +9,25 @@ public class Bus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "carNumber")
+    @Column(name = "car_number")
     private Integer carNumber;
     @Column(name = "color")
     private String color;
     @Column(name = "manufacturer")
     private String manufacturer;
-    @Column(name = "lifeCar")
+    @Column(name = "life_car")
     private String lifeCar;
-    @Column(name = "numberSeats")
-    private String numberSeats;
-    @Column(name = "yearUse")
+    @Column(name = "number_seats")
+    private Integer numberSeats;
+    @Column(name = "year_use")
     private Integer yearUse;
-    @Column(name = "dateMantain")
+    @Column(name = "date_mantain")
     private Date dateMantain;
 
     public Bus() {
     }
 
-    public Bus(Integer carNumber, String color, String manufacturer, String lifeCar, String numberSeats, Integer yearUse, Date dateMantain) {
+    public Bus(Integer carNumber, String color, String manufacturer, String lifeCar, Integer numberSeats, Integer yearUse, Date dateMantain) {
         this.carNumber = carNumber;
         this.color = color;
         this.manufacturer = manufacturer;
@@ -77,11 +77,11 @@ public class Bus {
         this.lifeCar = lifeCar;
     }
 
-    public String getNumberSeats() {
+    public Integer getNumberSeats() {
         return numberSeats;
     }
 
-    public void setNumberSeats(String numberSeats) {
+    public void setNumberSeats(Integer numberSeats) {
         this.numberSeats = numberSeats;
     }
 

@@ -13,7 +13,7 @@ public class BusBean {
     private String color;
     private String manufacturer;
     private String lifeCar;
-    private String numberSeats;
+    private Integer numberSeats;
     private Integer yearUse;
     private Date dateMantain;
 }

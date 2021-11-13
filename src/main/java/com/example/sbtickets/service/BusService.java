@@ -41,7 +41,7 @@ public class BusService implements BusImplement {
         foundBus.setLifeCar(bus.getLifeCar());
         foundBus.setYearUse(bus.getYearUse());
         foundBus.setNumberSeats(bus.getNumberSeats());
-        return;
+        busRepository.save(foundBus);
     }
 
     @Override
