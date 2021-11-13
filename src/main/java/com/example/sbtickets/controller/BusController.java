@@ -51,7 +51,7 @@ public class BusController {
                     bus.getYearUse(),
                     bus.getDateMantain()
             );
-            createdBus = BusService.createBus(newBus);
+            createdBus = busService.createBus(newBus);
             response.setBody(createdBus);
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Created new Bus successfully");

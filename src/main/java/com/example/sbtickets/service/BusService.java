@@ -25,7 +25,7 @@ public class BusService implements BusImplement {
     }
 
     @Override
-    public static Bus createBus(Bus bus) {
+    public Bus createBus(Bus bus) {
         Bus newBus = busRepository.save(bus);
         return newBus;
     }
@@ -46,7 +46,7 @@ public class BusService implements BusImplement {
 
     @Override
     public void deleteBus(Integer id) {
-        BusRepository.deleteById(id);
+        busRepository.deleteById(id);
         return;
     }
 }
