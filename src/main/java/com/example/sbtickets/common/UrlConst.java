@@ -30,4 +30,9 @@ public class UrlConst {
      * API find name Driver CuongNv
      */
     public static final String FIND_DRIVER = HOME + "/findDriver";
+
+    /**
+     * API getAllBus SonPK
+     */
+    public static final String GET_BUS = HOME + "/getBus";
 }
