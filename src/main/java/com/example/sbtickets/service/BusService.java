@@ -1,22 +1,52 @@
 package com.example.sbtickets.service;
-
+import com.example.sbtickets.bean.BusBean;
+import com.example.sbtickets.entity.Bus;
+import com.example.sbtickets.repository.BusRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import com.example.sbtickets.entity.Bus;
-
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class BusService implements BusImplement {
-
+    @Autowired
+    BusRepository busRepository;
     @Override
-    public List<Bus> getBus(){
-        List<Bus> listBus = new ArrayList<>();
-        listBus.add(new Bus(01, "AB1234"));
-        listBus.add(new Bus(02, "AB5678"));
-        listBus.add(new Bus(03, "CD1234"));
-        listBus.add(new Bus(04, "CD5678"));
-        return listBus;
+    public List<Bus> getBus() {
+        List<Bus> listBus = busRepository.findAll();
+        return  listBus;
     }
 
+    @Override
+    public Bus findBus(String name) {
+        return null;
+    }
+
+    @Override
+    public static Bus createBus(Bus bus) {
+        Bus newBus = busRepository.save(bus);
+        return newBus;
+    }
+
+    @Override
+    public void updateBus(Integer id, Bus bus) {
+        Optional<Bus> dbBus = busRepository.findById(id);
+        Bus foundBus = dbBus.get();
+        foundBus.setColor(bus.getColor());
+        foundBus.setCarNumber(bus.getCarNumber());
+        foundBus.setDateMantain(bus.getDateMantain());
+        foundBus.setManufacturer(bus.getManufacturer());
+        foundBus.setLifeCar(bus.getLifeCar());
+        foundBus.setYearUse(bus.getYearUse());
+        foundBus.setNumberSeats(bus.getNumberSeats());
+        return;
+    }
+
+    @Override
+    public void deleteBus(Integer id) {
+        BusRepository.deleteById(id);
+        return;
+    }
 }
