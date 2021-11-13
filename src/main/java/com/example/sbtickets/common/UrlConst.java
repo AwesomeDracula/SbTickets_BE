@@ -8,7 +8,7 @@ package com.example.sbtickets.common;
 public class UrlConst {
     /**
      * @author CuongNv
-     * Class kha  báo URL hệ thống Sbtickets
+     * Class khai báo URL hệ thống Sbtickets
      */
 
     /**
@@ -36,4 +36,17 @@ public class UrlConst {
     public static final String UPDATE_DRIVER = HOME + "/updateDriver/{id}";
 
     public static final String DELETE_DRIVER = HOME + "/deleteDriver/{id}";
+
+    /**
+     * API find name Line Bus HaLv
+     */
+    public static final String GET_LINE_BUS = HOME + "/findLineBus";
+
+    public static final String FIND_LINE_BUS = HOME + "/findLineBus";
+
+    public static final String CREATE_LINE_BUS = HOME + "/createLineBus";
+
+    public static final String UPDATE_LINE_BUS = HOME + "/updateLineBus/{id}";
+
+    public static final String DELETE_LINE_BUS = HOME + "/deleteLineBus/{id}";
 }
