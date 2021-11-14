@@ -3,6 +3,7 @@ package com.example.sbtickets.controller;
 import com.example.sbtickets.bean.AuthenticationBean;
 import com.example.sbtickets.bean.DriverBean;
 import com.example.sbtickets.bean.WrapperResponse;
+import com.example.sbtickets.common.DriverExcelExporter;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.entity.Driver;
 import com.example.sbtickets.service.DriverService;
@@ -12,8 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +26,7 @@ public class DriverController {
 
     @Autowired
     DriverService driverService;
+
 
     @RequestMapping(value = UrlConst.GET_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getDriver() {
@@ -61,7 +67,6 @@ public class DriverController {
         Driver newDriver, createdDriver;
         try {
             newDriver = new Driver(
-                    driver.getSalaryId(),
                     driver.getNationalId(),
                     driver.getName(),
                     driver.getCodeLicense(),
@@ -89,7 +94,6 @@ public class DriverController {
         Driver updatingDriver;
         try{
             updatingDriver = new Driver(
-                    driver.getSalaryId(),
                     driver.getNationalId(),
                     driver.getName(),
                     driver.getCodeLicense(),
@@ -153,4 +157,25 @@ public class DriverController {
         return new ResponseEntity<Driver>(result, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = UrlConst.EXPORT_EXCEL_ALL_DRIVER, method = RequestMethod.GET)
+    public void exportToExcelDriver(HttpServletResponse response){
+        try {
+            response.setContentType("application/octet-stream");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=driverAll_" + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            List<Driver> listUsers = driverService.getDriver();
+
+            DriverExcelExporter excelExporter = new DriverExcelExporter(listUsers);
+
+            excelExporter.export(response);
+        }
+        catch (IOException ex){
+        }
+    }
 }

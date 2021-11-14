@@ -30,7 +30,7 @@ public class UserController{
         HttpStatus httpStatus = null;
         try {
             if (userService.checkLogin(new User(user.getUsername(), user.getPassword()))) {
-                result.setToken(jwtService.generateTokenLogin(user.getUsername()));
+                result.setToken(jwtService.generateToken(new User(user.getUsername(), user.getPassword())));
                 result.setStatus(HttpStatus.OK.value());
             } else {
                 result.setMessage("Wrong userId and password");
