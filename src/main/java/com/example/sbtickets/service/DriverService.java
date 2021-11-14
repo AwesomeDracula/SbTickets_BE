@@ -42,7 +42,6 @@ public class DriverService implements DriverImplement{
         foundDriver.setImage(driver.getImage());
         foundDriver.setSeniority(driver.getSeniority());
         foundDriver.setNationalId(driver.getNationalId());
-        foundDriver.setSalaryId(driver.getSalaryId());
         foundDriver.setTypeLicense(driver.getTypeLicense());
         foundDriver.setName(driver.getName());
         driverRepository.save(foundDriver);

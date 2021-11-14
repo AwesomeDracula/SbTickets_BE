@@ -4,14 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Driver")
+@Table(name = "driver")
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "salary_id")
-    private Integer salaryId;
     @Column(name = "cmt")
     private String nationalId;
     @Column(name = "driver_name")
@@ -32,8 +30,7 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(Integer salaryId, String nationalId, String name, String codeLicense, String typeLicense, String address, Date dob, Integer seniority, String image) {
-        this.salaryId = salaryId;
+    public Driver(String nationalId, String name, String codeLicense, String typeLicense, String address, Date dob, Integer seniority, String image) {
         this.nationalId = nationalId;
         this.name = name;
         this.codeLicense = codeLicense;
@@ -46,10 +43,6 @@ public class Driver {
 
     public Integer getId() {
         return id;
-    }
-
-    public Integer getSalaryId() {
-        return salaryId;
     }
 
     public String getNationalId() {
@@ -86,10 +79,6 @@ public class Driver {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setSalaryId(Integer salaryId) {
-        this.salaryId = salaryId;
     }
 
     public void setNationalId(String nationalId) {

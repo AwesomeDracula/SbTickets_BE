@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class DriverExcelExporter {
@@ -52,7 +53,11 @@ public class DriverExcelExporter {
             cell.setCellValue((Integer) value);
         } else if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
-        }else {
+        }
+        else if(value instanceof Date){
+            cell.setCellValue((Date) value);
+        }
+        else {
             cell.setCellValue((String) value);
         }
         cell.setCellStyle(style);

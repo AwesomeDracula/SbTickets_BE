@@ -31,8 +31,8 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String authToken = httpRequest.getHeader(TOKEN_HEADER);
-        if (jwtService.validateTokenLogin(authToken)) {
-            String username = jwtService.getUsernameFromToken(authToken);
+        if (jwtService.validateToken(authToken)) {
+            String username = jwtService.getUserIdFromJWT(authToken);
             com.example.sbtickets.authentication.entity.User user = userService.loadUserByUsername(username);
             if (user != null) {
                 boolean enabled = true;

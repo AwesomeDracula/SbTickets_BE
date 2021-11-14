@@ -50,7 +50,6 @@ public class DriverController {
         Driver newDriver, createdDriver;
         try {
             newDriver = new Driver(
-                    driver.getSalaryId(),
                     driver.getNationalId(),
                     driver.getName(),
                     driver.getCodeLicense(),
@@ -78,7 +77,6 @@ public class DriverController {
         Driver updatingDriver;
         try{
             updatingDriver = new Driver(
-                    driver.getSalaryId(),
                     driver.getNationalId(),
                     driver.getName(),
                     driver.getCodeLicense(),
