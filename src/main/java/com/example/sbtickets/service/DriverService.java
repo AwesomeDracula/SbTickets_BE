@@ -22,6 +22,13 @@ public class DriverService implements DriverImplement{
     }
 
     @Override
+    public Driver getDriverById(Integer id) {
+        Optional<Driver> dbDriver = driverRepository.findById(id);
+        Driver foundDriver = dbDriver.get();
+        return foundDriver;
+    }
+
+    @Override
     public Driver findDriver(String name) {
         return null;
     }
@@ -52,6 +59,12 @@ public class DriverService implements DriverImplement{
     @Override
     public void deleteDriver(Integer id) {
         driverRepository.deleteById(id);
+        return;
+    }
+
+    @Override
+    public void deleteDrivers(List<Integer> ids) {
+        driverRepository.deleteAllById(ids);
         return;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,22 @@ public class DriverController {
         }
         catch (Exception ex){
             response.setMsg("Not found");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.GET_DRIVER_BY_ID, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> getDriverById(@PathVariable("id") Integer id){
+        WrapperResponse response = new WrapperResponse();
+        Driver driver;
+        try {
+            driver = driverService.getDriverById(id);
+            response.setBody(driver);
+            response.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            response.setMsg("Cannot find driver");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
@@ -98,6 +115,22 @@ public class DriverController {
         WrapperResponse response = new WrapperResponse();
         try{
             driverService.deleteDriver(id);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMsg("Deleted successfully");
+        } catch (Exception ex){
+            response.setMsg(ex.getMessage());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.DELETE_DRIVERS, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteDrivers(@RequestBody Integer[] ids){
+        WrapperResponse response = new WrapperResponse();
+        try{
+            List<Integer> list = Arrays.asList(ids);
+            driverService.deleteDrivers(list);
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){

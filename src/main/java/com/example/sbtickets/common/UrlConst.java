@@ -26,6 +26,8 @@ public class UrlConst {
      */
     public static final String GET_DRIVER = HOME + "/getDriver";
 
+    public static final String GET_DRIVER_BY_ID = HOME + "/getDriver/{id}";
+
     /**
      * API find name Driver CuongNv
      */
@@ -36,4 +38,6 @@ public class UrlConst {
     public static final String UPDATE_DRIVER = HOME + "/updateDriver/{id}";
 
     public static final String DELETE_DRIVER = HOME + "/deleteDriver/{id}";
+
+    public static final String DELETE_DRIVERS = HOME + "/deleteDrivers";
 }
