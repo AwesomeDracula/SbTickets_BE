@@ -94,7 +94,7 @@ package com.example.sbtickets.authentication.service;
 //package vn.com.nsmv.config.security;
 import java.util.Date;
 
-import com.example.sbtickets.authentication.entity.User;
+import com.example.sbtickets.entity.User;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Component;
 
@@ -122,7 +122,7 @@ public class JwtService {
         Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
         // Tạo chuỗi json web token từ id của user.
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getUserName())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)

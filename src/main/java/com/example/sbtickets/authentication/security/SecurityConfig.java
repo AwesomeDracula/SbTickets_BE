@@ -40,13 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
     protected void configure(HttpSecurity http) throws Exception {
         // Disable crsf cho đường dẫn /Sbtickets/**
-        http.csrf().ignoringAntMatchers("/Sbtickets/**");
-        http.authorizeRequests().antMatchers("/Sbtickets/login**").permitAll();
-        http.antMatcher("/Sbtickets/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
+        http.csrf().ignoringAntMatchers(UrlConst.HOME + "/**");
+        http.authorizeRequests().antMatchers(UrlConst.HOME + "/login**").permitAll();
+        http.antMatcher(UrlConst.HOME + "/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/Sbtickets/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.POST, "/Sbtickets/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.DELETE, "/Sbtickets/**").access("hasRole('ROLE_ADMIN')").and()
+                .antMatchers(HttpMethod.GET, UrlConst.HOMEADIM.HOMEADIM + "/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, UrlConst.HOME_USER.HOME_USER + "/**").access("hasRole('ROLE_USER')")
+                .antMatchers(HttpMethod.POST, UrlConst.HOME_USER.HOME_USER + "/**").access("hasRole('ROLE_USER')")
+                .antMatchers(HttpMethod.POST, UrlConst.HOMEADIM.HOMEADIM + "/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.DELETE, UrlConst.HOMEADIM.HOMEADIM + "/**").access("hasRole('ROLE_ADMIN')").and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
     }

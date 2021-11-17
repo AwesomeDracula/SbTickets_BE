@@ -20,7 +20,7 @@ public class BusController {
     @Autowired
     BusService busService;
 
-    @RequestMapping(value = UrlConst.GET_BUS, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_BUS, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getBus() {
         WrapperResponse response = new WrapperResponse();
         List<Bus> result = new ArrayList<>();
@@ -37,7 +37,7 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.CREATE_BUS, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOMEADIM.CREATE_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> createBus(HttpServletRequest request, @RequestBody BusBean bus){
         WrapperResponse response = new WrapperResponse();
         Bus newBus, createdBus;
@@ -63,7 +63,7 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.UPDATE_BUS, method = RequestMethod.PUT)
+    @RequestMapping(value = UrlConst.HOMEADIM.UPDATE_BUS, method = RequestMethod.PUT)
     public ResponseEntity<WrapperResponse> updateBus(@PathVariable("id") Integer id, @RequestBody BusBean bus){
         WrapperResponse response = new WrapperResponse();
         Bus updatingBus;
@@ -88,7 +88,7 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.DELETE_BUS, method = RequestMethod.DELETE)
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_BUS, method = RequestMethod.DELETE)
     public ResponseEntity<WrapperResponse> deleteBus(@PathVariable("id") Integer id){
         WrapperResponse response = new WrapperResponse();
         try{
@@ -103,7 +103,7 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.FIND_BUS, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.FIND_BUS, method = RequestMethod.GET)
     public ResponseEntity<Bus> findBus(@RequestBody Integer carNumber) {
         Bus result = new Bus();
         try {

@@ -1,11 +1,11 @@
 package com.example.sbtickets.authentication.controller;
 
-import com.example.sbtickets.authentication.entity.User;
 import com.example.sbtickets.bean.AuthenticationBean;
 import com.example.sbtickets.bean.UserBean;
 import com.example.sbtickets.authentication.service.JwtService;
-import com.example.sbtickets.authentication.service.UserService;
 import com.example.sbtickets.common.UrlConst;
+import com.example.sbtickets.entity.User;
+import com.example.sbtickets.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

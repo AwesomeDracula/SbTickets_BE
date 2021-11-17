@@ -28,7 +28,7 @@ public class DriverController {
     DriverService driverService;
 
 
-    @RequestMapping(value = UrlConst.GET_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getDriver() {
         WrapperResponse response = new WrapperResponse();
         List<Driver> result = new ArrayList<>();
@@ -45,7 +45,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.GET_DRIVER_BY_ID, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_DRIVER_BY_ID, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getDriverById(@PathVariable("id") Integer id){
         WrapperResponse response = new WrapperResponse();
         Driver driver;
@@ -61,7 +61,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.CREATE_DRIVER, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOMEADIM.CREATE_DRIVER, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> createDriver(HttpServletRequest request, @RequestBody DriverBean driver){
         WrapperResponse response = new WrapperResponse();
         Driver newDriver, createdDriver;
@@ -88,7 +88,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.UPDATE_DRIVER, method = RequestMethod.PUT)
+    @RequestMapping(value = UrlConst.HOMEADIM.UPDATE_DRIVER, method = RequestMethod.PUT)
     public ResponseEntity<WrapperResponse> updateDriver(@PathVariable("id") Integer id, @RequestBody DriverBean driver){
         WrapperResponse response = new WrapperResponse();
         Driver updatingDriver;
@@ -114,7 +114,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.DELETE_DRIVER, method = RequestMethod.DELETE)
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_DRIVER, method = RequestMethod.DELETE)
     public ResponseEntity<WrapperResponse> deleteDriver(@PathVariable("id") Integer id){
         WrapperResponse response = new WrapperResponse();
         try{
@@ -129,7 +129,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.DELETE_DRIVERS, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_DRIVERS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> deleteDrivers(@RequestBody Integer[] ids){
         WrapperResponse response = new WrapperResponse();
         try{
@@ -145,7 +145,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.FIND_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.FIND_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<Driver> findDriver(@RequestBody String name) {
         Driver result = new Driver();
         try {
@@ -158,7 +158,7 @@ public class DriverController {
     }
 
 
-    @RequestMapping(value = UrlConst.EXPORT_EXCEL_ALL_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.EXPORT_EXCEL_ALL_DRIVER, method = RequestMethod.GET)
     public void exportToExcelDriver(HttpServletResponse response){
         try {
             response.setContentType("application/octet-stream");
