@@ -36,6 +36,8 @@ public class UrlConst {
      */
     public static final String GET_BUS = HOME + "/getBus";
 
+    public static final String GET_BUS_BY_ID = HOME + "/getBus/{id}";
+
     public static final String FIND_BUS = HOME + "/findBus";
 
     public static final String CREATE_BUS = HOME + "/createBus";
@@ -43,4 +45,9 @@ public class UrlConst {
     public static final String UPDATE_BUS = HOME + "/updateBus/{id}";
 
     public static final String DELETE_BUS = HOME + "/deleteBus/{id}";
+
+    public static final String DELETE_BUSES = HOME + "/deleteBuses";
+
+    public static final String EXPORT_EXCEL_ALL_BUS = HOME + "/bus/excelAll";
+
 }

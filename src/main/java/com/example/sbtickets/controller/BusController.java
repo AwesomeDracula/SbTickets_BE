@@ -10,9 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.sbtickets.common.BusExcelExporter;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -31,6 +37,22 @@ public class BusController {
         }
         catch (Exception ex){
             response.setMsg("Not found");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.GET_BUS_BY_ID, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> getBusById(@PathVariable("id") Integer id){
+        WrapperResponse response = new WrapperResponse();
+        Bus bus;
+        try {
+            bus = busService.getBusById(id);
+            response.setBody(bus);
+            response.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            response.setMsg("Cannot find bus");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
@@ -103,6 +125,22 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
+    @RequestMapping(value = UrlConst.DELETE_BUSES, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteBuses(@RequestBody Integer[] ids){
+        WrapperResponse response = new WrapperResponse();
+        try{
+            List<Integer> list = Arrays.asList(ids);
+            busService.deleteBuses(list);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMsg("Deleted successfully");
+        } catch (Exception ex){
+            response.setMsg(ex.getMessage());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
     @RequestMapping(value = UrlConst.FIND_BUS, method = RequestMethod.GET)
     public ResponseEntity<Bus> findBus(@RequestBody Integer carNumber) {
         Bus result = new Bus();
@@ -115,4 +153,24 @@ public class BusController {
         return new ResponseEntity<Bus>(result, HttpStatus.OK);
     }
 
+    @RequestMapping(value = UrlConst.EXPORT_EXCEL_ALL_BUS, method = RequestMethod.GET)
+    public void exportToExcelDriver(HttpServletResponse response){
+        try {
+            response.setContentType("application/octet-stream");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=busAll_" + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            List<Bus> listUsers = busService.getBus();
+
+            BusExcelExporter excelExporter = new BusExcelExporter(listUsers);
+
+            excelExporter.export(response);
+        }
+        catch (IOException ex){
+        }
+    }
 }
