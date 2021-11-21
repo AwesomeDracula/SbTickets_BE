@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.sbtickets.common.BusExcelExporter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -153,24 +152,4 @@ public class BusController {
         return new ResponseEntity<Bus>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.EXPORT_EXCEL_ALL_BUS, method = RequestMethod.GET)
-    public void exportToExcelDriver(HttpServletResponse response){
-        try {
-            response.setContentType("application/octet-stream");
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String currentDateTime = dateFormatter.format(new Date());
-
-            String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=busAll_" + currentDateTime + ".xlsx";
-            response.setHeader(headerKey, headerValue);
-
-            List<Bus> listUsers = busService.getBus();
-
-            BusExcelExporter excelExporter = new BusExcelExporter(listUsers);
-
-            excelExporter.export(response);
-        }
-        catch (IOException ex){
-        }
-    }
 }
