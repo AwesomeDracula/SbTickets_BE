@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BusController {
@@ -104,15 +105,21 @@ public class BusController {
     }
 
     @RequestMapping(value = UrlConst.HOMEADIM.FIND_BUS, method = RequestMethod.GET)
-    public ResponseEntity<Bus> findBus(@RequestBody Integer carNumber) {
-        Bus result = new Bus();
+    public ResponseEntity<WrapperResponse> findBus(@PathVariable("id") Integer id) {
+        WrapperResponse response = new WrapperResponse();
         try {
-            result = busService.findBus(carNumber);
+            Optional<Bus>  result = null;
+            result  = busService.findBus(id);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMsg("find successfully");
+            response.setBody(result);
         }
         catch (Exception ex){
-            return new ResponseEntity<Bus>(result, HttpStatus.FAILED_DEPENDENCY);
+            response.setMsg(ex.getMessage());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
-        return new ResponseEntity<Bus>(result, HttpStatus.OK);
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
 }

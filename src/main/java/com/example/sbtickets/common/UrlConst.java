@@ -51,7 +51,7 @@ public class UrlConst {
          */
         public static final String GET_BUS = HOMEADIM + "/getBus";
 
-        public static final String FIND_BUS = HOMEADIM + "/findBus";
+        public static final String FIND_BUS = HOMEADIM + "/findBus/{id}";
 
         public static final String CREATE_BUS = HOMEADIM + "/createBus";
 

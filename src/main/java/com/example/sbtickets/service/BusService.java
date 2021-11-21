@@ -20,8 +20,8 @@ public class BusService implements BusImplement {
     }
 
     @Override
-    public Bus findBus(Integer carNumber) {
-        return null;
+    public Optional<Bus> findBus(Integer carNumber) {
+        return busRepository.findById(carNumber);
     }
 
     @Override
