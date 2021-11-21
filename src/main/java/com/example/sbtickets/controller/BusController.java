@@ -11,9 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.sbtickets.common.BusExcelExporter;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +43,22 @@ public class BusController {
         catch (Exception ex){
             logger.error(ex);
             response.setMsg("Not found");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_BUS_BY_ID, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> getBusById(@PathVariable("id") Integer id){
+        WrapperResponse response = new WrapperResponse();
+        Bus bus;
+        try {
+            bus = busService.getBusById(id);
+            response.setBody(bus);
+            response.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            response.setMsg("Cannot find bus");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
@@ -112,23 +134,32 @@ public class BusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.HOMEADIM.FIND_BUS, method = RequestMethod.GET)
-    public ResponseEntity<WrapperResponse> findBus(@PathVariable("id") Integer id) {
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_BUSES, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteBuses(@RequestBody Integer[] ids){
         WrapperResponse response = new WrapperResponse();
-        try {
-            Optional<Bus>  result = null;
-            result  = busService.findBus(id);
+        try{
+            List<Integer> list = Arrays.asList(ids);
+            busService.deleteBuses(list);
             response.setStatus(HttpStatus.OK.value());
-            response.setMsg("find successfully");
-            response.setBody(result);
-        }
-        catch (Exception ex){
-            logger.error(ex);
+            response.setMsg("Deleted successfully");
+        } catch (Exception ex){
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.HOMEADIM.FIND_BUS, method = RequestMethod.GET)
+    public ResponseEntity<Bus> findBus(@RequestBody Integer carNumber) {
+        Bus result = new Bus();
+        try {
+            result = busService.findBus(carNumber);
+        }
+        catch (Exception ex){
+            return new ResponseEntity<Bus>(result, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<Bus>(result, HttpStatus.OK);
     }
 
 }

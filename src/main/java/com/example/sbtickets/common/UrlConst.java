@@ -61,6 +61,10 @@ public class UrlConst {
 
         public static final String DELETE_BUS = HOMEADIM + "/deleteBus/{id}";
 
+        public static final String DELETE_BUSES = HOMEADIM + "/deleteBuses";
+
+        public static final String GET_BUS_BY_ID = HOME + "/getBus/{id}";
+
         /**
          * API find name Line Bus HaLv
          */

@@ -28,14 +28,15 @@ public class BusService implements BusImplement {
     }
 
     @Override
-    public Optional<Bus> findBus(Integer carNumber) {
-        try {
-            return busRepository.findById(carNumber);
-        }
-        catch (Exception ex){
-            logger.error(ex);
-        }
-        return  null;
+    public Bus getBusById(Integer id) {
+        Optional<Bus> dbBus = busRepository.findById(id);
+        Bus foundBus = dbBus.get();
+        return foundBus;
+    }
+
+    @Override
+    public Bus findBus(Integer carNumber) {
+        return null;
     }
 
     @Override
@@ -78,5 +79,11 @@ public class BusService implements BusImplement {
         catch (Exception ex){
             logger.error(ex);
         }
+    }
+
+    @Override
+    public void deleteBuses(List<Integer> ids) {
+        busRepository.deleteAllById(ids);
+        return;
     }
 }
