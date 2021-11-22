@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -89,6 +90,22 @@ public class LineBusController {
         WrapperResponse response = new WrapperResponse();
         try{
             lineBusService.deleteLineBus(id);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMsg("Deleted successfully");
+        } catch (Exception ex){
+            response.setMsg(ex.getMessage());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = UrlConst.DELETE_LINE_BUSES, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteLineBuses(@RequestBody Integer[] ids){
+        WrapperResponse response = new WrapperResponse();
+        try{
+            List<Integer> list = Arrays.asList(ids);
+            lineBusService.deleteLineBuses(list);
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){

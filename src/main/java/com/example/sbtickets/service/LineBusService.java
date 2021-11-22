@@ -50,4 +50,10 @@ public class LineBusService implements LineBusImplement{
         lineBusRepository.deleteById(id);
         return;
     }
+
+    @Override
+    public void deleteLineBuses(List<Integer> ids) {
+        lineBusRepository.deleteAllById(ids);
+        return;
+    }
 }

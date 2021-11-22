@@ -11,4 +11,5 @@ public interface LineBusImplement {
     public LineBus createLineBus(LineBus lineBus);
     public void updateLineBus(Integer id, LineBus lineBus);
     public void deleteLineBus(Integer id);
+    public void deleteLineBuses(List<Integer> ids);
 }
