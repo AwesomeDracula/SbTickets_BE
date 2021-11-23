@@ -42,7 +42,9 @@ public class UrlConst {
      */
     public static final String GET_LINE_BUS = HOME + "/getLineBus";
 
-    public static final String FIND_LINE_BUS = HOME + "/findLineBus/{id}";
+    public static final String GET_LINE_BUS_BY_ID = HOME + "/getLineBusById";
+
+    public static final String FIND_LINE_BUS = HOME + "/findLineBus";
 
     public static final String CREATE_LINE_BUS = HOME + "/createLineBus";
 

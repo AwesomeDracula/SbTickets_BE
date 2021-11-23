@@ -22,7 +22,15 @@ public class LineBusService implements LineBusImplement{
     }
 
     @Override
-    public LineBus findLineBus(Integer id) {
+    public LineBus getLineBusById(Integer id) {
+        Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
+        LineBus foundLineBus = dbLineBus.get();
+        return foundLineBus;
+    }
+
+
+    @Override
+    public LineBus findLineBus(String firstPoint) {
         return null;
     }
 
@@ -36,7 +44,6 @@ public class LineBusService implements LineBusImplement{
     public void updateLineBus(Integer id, LineBus lineBus) {
         Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
         LineBus foundLineBus = dbLineBus.get();
-        foundLineBus.setId(id);
         foundLineBus.setFirstPoint(lineBus.getFirstPoint());
         foundLineBus.setLastPoint(lineBus.getLastPoint());
         foundLineBus.setLength(lineBus.getLength());
