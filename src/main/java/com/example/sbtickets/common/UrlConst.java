@@ -46,6 +46,8 @@ public class UrlConst {
     /**
      * API getAllBus SonPK
      */
+    public static final String GET_BUS_BY_ID = HOME + "/getBus/{id}";
+
     public static final String GET_BUS = HOME + "/getBus";
 
     public static final String FIND_BUS = HOME + "/findBus";
@@ -55,6 +57,8 @@ public class UrlConst {
     public static final String UPDATE_BUS = HOME + "/updateBus/{id}";
 
     public static final String DELETE_BUS = HOME + "/deleteBus/{id}";
+
+    public static final String DELETE_BUSES = HOME + "/deleteBuses";
 
     /**
      * API find name Line Bus HaLv
