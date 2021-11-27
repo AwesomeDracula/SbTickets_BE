@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class DriverController {
 
     @Autowired
@@ -75,7 +76,8 @@ public class DriverController {
                     driver.getAddress(),
                     driver.getDob(),
                     driver.getSeniority(),
-                    driver.getImage()
+                    driver.getImage(),
+                    driver.getFixedSalary()
             );
             createdDriver = driverService.createDriver(newDriver);
             response.setBody(createdDriver);
@@ -102,7 +104,8 @@ public class DriverController {
                     driver.getAddress(),
                     driver.getDob(),
                     driver.getSeniority(),
-                    driver.getImage()
+                    driver.getImage(),
+                    driver.getFixedSalary()
             );
             driverService.updateDriver(id, updatingDriver);
             response.setMsg("Updated successfully");

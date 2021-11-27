@@ -18,4 +18,5 @@ public class DriverBean {
     private Date dob;
     private Integer seniority;
     private String image;
+    private Double fixedSalary;
 }

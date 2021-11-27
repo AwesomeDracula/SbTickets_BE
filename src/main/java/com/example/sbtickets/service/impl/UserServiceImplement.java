@@ -1,4 +1,4 @@
-package com.example.sbtickets.service;
+package com.example.sbtickets.service.impl;
 
 import com.example.sbtickets.entity.User;
 
@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface UserServiceImplement {
     public  List<User> findAll();
+    public boolean checkUserName(String userName);
     public Optional<User> findById(int id);
     public boolean add(User user);
     public boolean delete(int id);

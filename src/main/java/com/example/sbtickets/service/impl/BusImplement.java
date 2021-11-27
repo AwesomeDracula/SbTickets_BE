@@ -1,4 +1,4 @@
-package com.example.sbtickets.service;
+package com.example.sbtickets.service.impl;
 
 import com.example.sbtickets.bean.BusBean;
 import com.example.sbtickets.entity.Bus;

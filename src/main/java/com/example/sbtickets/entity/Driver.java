@@ -26,11 +26,13 @@ public class Driver {
     private Integer seniority;
     @Column(name = "image")
     private String image;
+    @Column(name = "fixed_salary")
+    private Double fixedSalary;
 
     public Driver() {
     }
 
-    public Driver(String nationalId, String name, String codeLicense, String typeLicense, String address, Date dob, Integer seniority, String image) {
+    public Driver(String nationalId, String name, String codeLicense, String typeLicense, String address, Date dob, Integer seniority, String image, Double fixedSalary) {
         this.nationalId = nationalId;
         this.name = name;
         this.codeLicense = codeLicense;
@@ -39,6 +41,7 @@ public class Driver {
         this.dob = dob;
         this.seniority = seniority;
         this.image = image;
+        this.fixedSalary = fixedSalary;
     }
 
     public Integer getId() {
@@ -111,5 +114,13 @@ public class Driver {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Double getFixedSalary() {
+        return fixedSalary;
+    }
+
+    public void setFixedSalary(Double fixedSalary) {
+        this.fixedSalary = fixedSalary;
     }
 }

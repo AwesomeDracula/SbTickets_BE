@@ -6,6 +6,7 @@ import com.example.sbtickets.entity.Bus;
 import com.example.sbtickets.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
+@CrossOrigin
 public class CustomerController {
 
     @RequestMapping(value = UrlConst.HOME_USER.GET_USER, method = RequestMethod.GET)
@@ -30,4 +32,6 @@ public class CustomerController {
         }
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
+
+
 }

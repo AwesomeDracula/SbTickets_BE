@@ -9,6 +9,7 @@ public class AuthenticationBean {
     private String token;
     private String message;
     private int status;
+    private String role;
 
     public AuthenticationBean(){
 

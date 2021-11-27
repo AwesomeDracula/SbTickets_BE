@@ -2,6 +2,7 @@ package com.example.sbtickets.service;
 
 import com.example.sbtickets.entity.User;
 import com.example.sbtickets.repository.AccountRepository;
+import com.example.sbtickets.service.impl.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,17 @@ public class UserService implements UserServiceImplement {
     @Override
     public List<User> findAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public boolean checkUserName(String userName) {
+        List<User> listUser = accountRepository.findAll();
+        for (User user : listUser) {
+            if (user.getUserName().trim().equals(userName.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -70,6 +82,8 @@ public class UserService implements UserServiceImplement {
         }
         return null;
     }
+
+
 
 }
 

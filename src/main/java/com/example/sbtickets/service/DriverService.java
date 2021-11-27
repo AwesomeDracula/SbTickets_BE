@@ -1,17 +1,16 @@
 package com.example.sbtickets.service;
 
-import com.example.sbtickets.bean.DriverBean;
 import com.example.sbtickets.entity.Driver;
 import com.example.sbtickets.repository.DriverRepository;
+import com.example.sbtickets.service.impl.DriverImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DriverService implements DriverImplement{
+public class DriverService implements DriverImplement {
 
     @Autowired
     DriverRepository driverRepository;

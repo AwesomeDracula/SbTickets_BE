@@ -1,17 +1,16 @@
 package com.example.sbtickets.service;
 
-import com.example.sbtickets.bean.LineBusBean;
 import com.example.sbtickets.entity.LineBus;
 import com.example.sbtickets.repository.LineBusRepository;
+import com.example.sbtickets.service.impl.LineBusImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LineBusService implements LineBusImplement{
+public class LineBusService implements LineBusImplement {
 
     @Autowired
     LineBusRepository lineBusRepository;
@@ -23,7 +22,7 @@ public class LineBusService implements LineBusImplement{
 
     @Override
     public LineBus findLineBus(Integer id) {
-        return null;
+        return lineBusRepository.findById(id).get();
     }
 
     @Override

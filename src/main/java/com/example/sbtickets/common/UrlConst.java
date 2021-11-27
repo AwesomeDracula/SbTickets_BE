@@ -18,6 +18,8 @@ public class UrlConst {
     public static final String HOME = "/Sbtickets";
     public static final String LOGIN_SBTICKETS = HOME + "/login";
 
+    public static final String USER_REGISTER = HOME + "/register";
+
     public static class HOMEADIM{
 
         /**
@@ -72,6 +74,19 @@ public class UrlConst {
 
         public static final String DELETE_LINE_BUS = HOMEADIM + "/deleteLineBus/{id}";
 
+        /**
+         * API find name TripBus CuongNv
+         */
+        public static final String CREATE_TRIP_BUS = HOMEADIM + "/createTripBus";
+
+        public static final String EDIT_TRIP_BUS = HOMEADIM + "/editTripBus";
+
+        public static final String DELETE_TRIP_BUS = HOMEADIM + "/deleteTripBus/{id}";
+
+        /**
+         * API find name thong ke bang luong CuongNv
+         */
+        public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages/{driverId}";
     }
 
     public static class HOME_USER{
