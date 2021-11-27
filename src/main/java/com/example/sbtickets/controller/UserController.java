@@ -10,6 +10,7 @@ import com.example.sbtickets.entity.Customer;
 import com.example.sbtickets.entity.User;
 import com.example.sbtickets.service.CustomerService;
 import com.example.sbtickets.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @CrossOrigin
 public class UserController{
+
+    private static final Logger logger = Logger.getLogger(UserController.class);
+
     @Autowired
     private JwtService jwtService;
 
@@ -48,6 +52,7 @@ public class UserController{
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
             }
         } catch (Exception ex) {
+            logger.error(ex);
             result.setMessage(ex.getMessage());
             result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
@@ -77,6 +82,7 @@ public class UserController{
                 }
             }
         } catch (Exception ex) {
+            logger.error(ex);
             ex.printStackTrace();
             return  new ResponseEntity<WrapperResponse>(result, HttpStatus.FAILED_DEPENDENCY);
         }

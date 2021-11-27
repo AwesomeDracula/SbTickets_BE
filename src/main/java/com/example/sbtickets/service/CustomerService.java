@@ -5,9 +5,11 @@ import com.example.sbtickets.repository.CustomerRepository;
 import com.example.sbtickets.service.impl.CustomerImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.log4j.Logger;
 
 @Service
 public class CustomerService implements CustomerImplement {
+    private static final Logger logger = Logger.getLogger(BusService.class);
 
     @Autowired
     CustomerRepository customerRepository;
@@ -17,7 +19,7 @@ public class CustomerService implements CustomerImplement {
            customerRepository.save(customer);
        }
        catch (Exception ex){
-           ex.printStackTrace();
+           logger.error(ex);
            return false;
        }
        return true;

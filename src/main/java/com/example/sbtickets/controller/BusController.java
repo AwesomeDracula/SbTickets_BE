@@ -6,6 +6,7 @@ import com.example.sbtickets.bean.BusBean;
 import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.entity.Bus;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class BusController {
+
+    private static final Logger logger = Logger.getLogger(BusController.class);
     @Autowired
     BusService busService;
 
@@ -32,6 +35,7 @@ public class BusController {
             response.setStatus(HttpStatus.OK.value());
         }
         catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Not found");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -58,6 +62,7 @@ public class BusController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Created new Bus successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot create new Bus");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -83,6 +88,7 @@ public class BusController {
             response.setMsg("Updated successfully");
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMsg("Updated fail");
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -98,6 +104,7 @@ public class BusController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -116,6 +123,7 @@ public class BusController {
             response.setBody(result);
         }
         catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);

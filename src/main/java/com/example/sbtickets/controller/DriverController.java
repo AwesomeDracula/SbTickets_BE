@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 @RestController
 @CrossOrigin
 public class DriverController {
+    private static final Logger logger = Logger.getLogger(DriverController.class);
 
     @Autowired
     DriverService driverService;
@@ -40,6 +41,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
         }
         catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Not found");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -56,6 +58,7 @@ public class DriverController {
             response.setBody(driver);
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot find driver");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -84,6 +87,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Created new driver successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot create new driver");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -111,6 +115,7 @@ public class DriverController {
             response.setMsg("Updated successfully");
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMsg("Updated fail");
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -126,6 +131,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -142,6 +148,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -156,6 +163,7 @@ public class DriverController {
             result = driverService.findDriver(name);
         }
         catch (Exception ex){
+            logger.error(ex);
             return new ResponseEntity<Driver>(result, HttpStatus.FAILED_DEPENDENCY);
         }
         return new ResponseEntity<Driver>(result, HttpStatus.OK);
@@ -180,6 +188,7 @@ public class DriverController {
             excelExporter.export(response);
         }
         catch (IOException ex){
+            logger.error(ex);
         }
     }
 }

@@ -5,6 +5,7 @@ import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.entity.LineBus;
 import com.example.sbtickets.service.LineBusService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class LineBusController {
+    private static final Logger logger = Logger.getLogger(LineBusController.class);
 
     @Autowired
     LineBusService lineBusService;
@@ -31,6 +33,7 @@ public class LineBusController {
             response.setStatus(HttpStatus.OK.value());
         }
         catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Not found");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -55,6 +58,7 @@ public class LineBusController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Created new line bus successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot create new line bus");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -78,6 +82,7 @@ public class LineBusController {
             response.setMsg("Updated successfully");
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMsg("Updated fail");
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -93,6 +98,7 @@ public class LineBusController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -107,6 +113,7 @@ public class LineBusController {
             result = lineBusService.findLineBus(id);
         }
         catch (Exception ex){
+            logger.error(ex);
             return new ResponseEntity<LineBus>(result, HttpStatus.FAILED_DEPENDENCY);
         }
         return new ResponseEntity<LineBus>(result, HttpStatus.OK);
