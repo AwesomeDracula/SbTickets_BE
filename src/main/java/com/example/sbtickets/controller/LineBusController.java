@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -37,13 +38,28 @@ public class LineBusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
+    @RequestMapping(value = UrlConst.GET_LINE_BUS_BY_ID, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> getlineBusById(@PathVariable("id") Integer id){
+        WrapperResponse response = new WrapperResponse();
+        LineBus lineBus;
+        try {
+            lineBus = lineBusService.getLineBusById(id);
+            response.setBody(lineBus);
+            response.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            response.setMsg("Cannot find line bus");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
     @RequestMapping(value = UrlConst.CREATE_LINE_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> createLineBus(HttpServletRequest request, @RequestBody LineBusBean lineBus){
         WrapperResponse response = new WrapperResponse();
         LineBus newLineBus, createdLineBus;
         try {
             newLineBus = new LineBus(
-                    lineBus.getId(),
                     lineBus.getFirstPoint(),
                     lineBus.getLastPoint(),
                     lineBus.getLength(),
@@ -67,7 +83,6 @@ public class LineBusController {
         LineBus updatingLineBus;
         try{
             updatingLineBus = new LineBus(
-                    lineBus.getId(),
                     lineBus.getFirstPoint(),
                     lineBus.getLastPoint(),
                     lineBus.getLength(),
@@ -99,11 +114,27 @@ public class LineBusController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
+    @RequestMapping(value = UrlConst.DELETE_LINE_BUSES, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteLineBuses(@RequestBody Integer[] ids){
+        WrapperResponse response = new WrapperResponse();
+        try{
+            List<Integer> list = Arrays.asList(ids);
+            lineBusService.deleteLineBuses(list);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMsg("Deleted successfully");
+        } catch (Exception ex){
+            response.setMsg(ex.getMessage());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
     @RequestMapping(value = UrlConst.FIND_LINE_BUS, method = RequestMethod.GET)
-    public ResponseEntity<LineBus> findLineBus(@RequestBody Integer id) {
+    public ResponseEntity<LineBus> findLineBus(@RequestBody String firstPoint) {
         LineBus result = new LineBus();
         try {
-            result = lineBusService.findLineBus(id);
+            result = lineBusService.findLineBus(firstPoint);
         }
         catch (Exception ex){
             return new ResponseEntity<LineBus>(result, HttpStatus.FAILED_DEPENDENCY);

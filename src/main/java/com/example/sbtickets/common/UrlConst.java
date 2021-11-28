@@ -61,6 +61,8 @@ public class UrlConst {
      */
     public static final String GET_LINE_BUS = HOME + "/getLineBus";
 
+    public static final String GET_LINE_BUS_BY_ID = HOME + "/getLineBus/{id}";
+
     public static final String FIND_LINE_BUS = HOME + "/findLineBus";
 
     public static final String CREATE_LINE_BUS = HOME + "/createLineBus";
@@ -68,4 +70,6 @@ public class UrlConst {
     public static final String UPDATE_LINE_BUS = HOME + "/updateLineBus/{id}";
 
     public static final String DELETE_LINE_BUS = HOME + "/deleteLineBus/{id}";
+
+    public static final String DELETE_LINE_BUSES = HOME + "/deleteLineBuses";
 }
