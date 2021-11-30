@@ -83,6 +83,10 @@ public class UrlConst {
 
         public static final String DELETE_TRIP_BUS = HOMEADIM + "/deleteTripBus/{id}";
 
+        public static final String FIND_TRIP_BUS = HOMEADIM + "/findTripBus/{id}";
+
+        public static final String GET_ALL_TRIP_BUS = HOMEADIM + "/getAllTripBus";
+
         /**
          * API find name thong ke bang luong CuongNv
          */

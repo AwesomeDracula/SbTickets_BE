@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service
 public class TripBusDriverDao implements TripBusDriverImplement {
@@ -72,5 +74,25 @@ public class TripBusDriverDao implements TripBusDriverImplement {
         catch (Exception ex){
             logger.error(ex.getMessage());
         }
+    }
+
+    @Override
+    public List<TripBusDriver> getListBusDriver() {
+        // start a transaction
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            String hql = "FROM TripBusDriver";
+            Query query = session.createQuery(hql);
+            List<TripBusDriver> listData = query.getResultList();
+            //Commit the transaction
+            session.getTransaction().commit();
+            return listData;
+
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return null;
     }
 }

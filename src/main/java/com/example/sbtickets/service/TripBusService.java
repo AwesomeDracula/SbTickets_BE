@@ -7,6 +7,8 @@ import com.example.sbtickets.service.impl.TripBusImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("TripBusService")
 public class TripBusService implements TripBusImplement {
@@ -49,6 +51,28 @@ public class TripBusService implements TripBusImplement {
     public TripBus findTripBusById(Integer id) {
         try{
             return tripBusRepository.getById(id);
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<TripBus> listTripBus() {
+        try{
+            return tripBusRepository.findAll();
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public TripBus findTripBus(Integer id) {
+        try{
+            return tripBusRepository.findById(id).get();
         }
         catch (Exception ex){
             logger.error(ex.getMessage());

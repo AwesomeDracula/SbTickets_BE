@@ -1,6 +1,7 @@
 package com.example.sbtickets.controller;
 
 import com.example.sbtickets.bean.TripBusBean;
+import com.example.sbtickets.bean.TripBusDriverBean;
 import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.dao.TripBusDriverDao;
@@ -16,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class TripBusController {
@@ -97,6 +102,23 @@ public class TripBusController {
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
 
+    @RequestMapping(value = UrlConst.HOMEADIM.FIND_TRIP_BUS, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> findTripBus(@PathVariable("id") Integer id) {
+        WrapperResponse result = new WrapperResponse();
+        try {
+            result.setMsg("Delete TripBus Sucessfull");
+            result.setStatus(HttpStatus.OK.value());
+            result.setBody(tripBusService.findTripBus(id));
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+            result.setMsg(ex.getMessage());
+            result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+        return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
+    }
+
     @RequestMapping(value = UrlConst.HOMEADIM.EDIT_TRIP_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> editTripBus(@RequestBody TripBusBean tripBusBean) {
         WrapperResponse result = new WrapperResponse();
@@ -142,4 +164,25 @@ public class TripBusController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
+
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_ALL_TRIP_BUS, method = RequestMethod.GET)
+    public ResponseEntity<WrapperResponse> getAllTripBus() {
+        WrapperResponse result = new WrapperResponse();
+        try {
+            result.setMsg("Get All TripBus Sucessfull");
+            result.setStatus(HttpStatus.OK.value());
+            HashMap<String, Object> listData = new HashMap<>();
+            listData.put("listTripBus", tripBusService.listTripBus());
+            listData.put("listTripBusDriver", tripBusDriverDao.getListBusDriver());
+            result.setBody(listData);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            result.setMsg(ex.getMessage());
+            result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+        return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
+    }
+
+
 }

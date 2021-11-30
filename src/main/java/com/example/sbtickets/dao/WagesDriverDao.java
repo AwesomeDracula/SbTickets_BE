@@ -24,7 +24,7 @@ public class WagesDriverDao implements WagesDriverImplement {
         session.beginTransaction();
         String queryString = "SELECT td.tripBus_id AS tripBusId, dr.driver_name AS driverName, dr.fixed_salary AS fixedSalary, " +
                 "td.wages AS wages, td.role_car AS roleCar\n" +
-                "FROM tripbus_driver td JOIN driver dr  ON td.driver_id = dr.id WHERE dr.id = :driverId";
+                "FROM tripbus_driver td JOIN driver dr  ON td.driver_id = dr.id WHERE dr.id = :driverId ";
         Query query = session.createSQLQuery(queryString).setResultTransformer(Transformers.aliasToBean(WagesDriverBean.class))
                 .setParameter("driverId", driverId);
         List<WagesDriverBean> listData = query.list();
