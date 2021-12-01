@@ -1,5 +1,6 @@
 package com.example.sbtickets.controller;
 
+import com.example.sbtickets.bean.AllTripBusByLastPointBean;
 import com.example.sbtickets.bean.TripBusBean;
 import com.example.sbtickets.bean.TripBusCustomerBean;
 import com.example.sbtickets.bean.WrapperResponse;
@@ -193,6 +194,22 @@ public class TripBusController {
             tripBusCustomerDao.insertTripBusCustomer(newSeat);
             result.setMsg("Seats booked successfully");
             result.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            logger.error(ex.getMessage());
+            result.setMsg(ex.getMessage());
+            result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+        return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
+    }
+
+    @RequestMapping(value = UrlConst.HOME_USER.FIND_BY_TRIPBUS, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> bookSeat(@RequestBody AllTripBusByLastPointBean tripBusByLastPointBean){
+        WrapperResponse result = new WrapperResponse();
+        try {
+            result.setMsg("Seats booked successfully");
+            result.setStatus(HttpStatus.OK.value());
+            result.setBody(tripBusService.findByFirtLastPointObject(tripBusByLastPointBean));
         } catch (Exception ex){
             logger.error(ex.getMessage());
             result.setMsg(ex.getMessage());

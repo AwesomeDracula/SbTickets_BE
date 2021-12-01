@@ -3,6 +3,7 @@ package com.example.sbtickets.dao;
 import com.example.sbtickets.controller.TripBusController;
 import com.example.sbtickets.dao.impl.TripBusCustomerInterface;
 import com.example.sbtickets.entity.TripBusCustomer;
+import com.example.sbtickets.entity.TripBusDriver;
 import com.example.sbtickets.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Transactional
 @Service
@@ -68,5 +70,26 @@ public class TripBusCustomerDao implements TripBusCustomerInterface {
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
+    }
+
+    @Override
+    public List<TripBusCustomer> findByTripBusId(Integer id) {
+        try{
+            // start a transaction
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+
+            String hql = "FROM TripBusCustomer as tripCustomer where tripCustomer.tripbusId = :tripbusid";
+            Query query = session.createQuery(hql);
+            query.setParameter("tripbusid", id);
+            List<TripBusCustomer> listData = query.getResultList();
+
+            //Commit the transaction
+            session.getTransaction().commit();
+            return  listData;
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return null;
     }
 }

@@ -48,16 +48,9 @@ public class LineBusService implements LineBusImplement {
     }
 
     @Override
-    public void updateLineBus(Integer id, LineBus lineBus) {
+    public void updateLineBus(LineBus lineBus) {
         try {
-            Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
-            LineBus foundLineBus = dbLineBus.get();
-            foundLineBus.setId(id);
-            foundLineBus.setFirstPoint(lineBus.getFirstPoint());
-            foundLineBus.setLastPoint(lineBus.getLastPoint());
-            foundLineBus.setLength(lineBus.getLength());
-            foundLineBus.setComplexity(lineBus.getComplexity());
-            lineBusRepository.save(foundLineBus);
+            lineBusRepository.save(lineBus);
             return;
         }
         catch (Exception ex){

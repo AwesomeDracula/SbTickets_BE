@@ -108,6 +108,10 @@ public class UrlConst {
         public static final String BOOK_SEAT = HOME_USER + "/bookSeat";
 
         public static final String CHANGE_SEAT = HOME_USER + "/changeSeat";
+
+        public static final String FIND_BY_TRIPBUS = HOME_USER + "/findByTripBus";
+
+        public static final String GET_LOACTION = HOME_USER + "/getloaction";
     }
 
 }

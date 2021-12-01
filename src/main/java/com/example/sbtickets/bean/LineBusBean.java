@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 public class LineBusBean {
     private Integer id;
-    private String firstPoint;
-    private String lastPoint;
+    private Integer firstId;
+    private Integer lastId;
     private Integer length;
     private Integer complexity;
 }

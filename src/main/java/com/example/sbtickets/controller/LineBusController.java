@@ -5,6 +5,7 @@ import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.entity.LineBus;
 import com.example.sbtickets.service.LineBusService;
+import com.example.sbtickets.service.TripBusAddressService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class LineBusController {
 
     @Autowired
     LineBusService lineBusService;
+
+    @Autowired
+    TripBusAddressService tripBusAddressService;
 
     @RequestMapping(value = UrlConst.HOMEADIM.GET_LINE_BUS, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getLineBus() {
@@ -63,9 +67,10 @@ public class LineBusController {
         WrapperResponse response = new WrapperResponse();
         LineBus newLineBus, createdLineBus;
         try {
+
             newLineBus = new LineBus(
-                    lineBus.getFirstPoint(),
-                    lineBus.getLastPoint(),
+                    tripBusAddressService.findTripBusAddress(lineBus.getFirstId()),
+                    tripBusAddressService.findTripBusAddress(lineBus.getLastId()),
                     lineBus.getLength(),
                     lineBus.getComplexity()
             );
@@ -88,12 +93,13 @@ public class LineBusController {
         LineBus updatingLineBus;
         try{
             updatingLineBus = new LineBus(
-                    lineBus.getFirstPoint(),
-                    lineBus.getLastPoint(),
+                    id,
+                    tripBusAddressService.findTripBusAddress(lineBus.getFirstId()),
+                    tripBusAddressService.findTripBusAddress(lineBus.getLastId()),
                     lineBus.getLength(),
                     lineBus.getComplexity()
             );
-            lineBusService.updateLineBus(id, updatingLineBus);
+            lineBusService.updateLineBus(updatingLineBus);
             response.setMsg("Updated successfully");
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){

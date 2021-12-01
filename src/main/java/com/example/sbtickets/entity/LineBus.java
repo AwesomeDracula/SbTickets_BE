@@ -10,10 +10,12 @@ public class LineBus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "first_point")
-    private String firstPoint;
-    @Column(name = "last_point")
-    private String lastPoint;
+    @OneToOne
+    @JoinColumn(name = "first_id")
+    private TripbusAddress firtPoint;
+    @OneToOne
+    @JoinColumn(name = "last_id")
+    private TripbusAddress lastPoint;
     @Column(name = "length")
     private Integer length;
     @Column(name = "complexity")
@@ -23,9 +25,16 @@ public class LineBus {
 
     }
 
-    public LineBus(String firstPoint, String lastPoint, Integer length, Integer complexity)
-    {
-        this.firstPoint = firstPoint;
+    public LineBus(Integer id, TripbusAddress firtPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+        this.id = id;
+        this.firtPoint = firtPoint;
+        this.lastPoint = lastPoint;
+        this.length = length;
+        this.complexity = complexity;
+    }
+
+    public LineBus(TripbusAddress firtPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+        this.firtPoint = firtPoint;
         this.lastPoint = lastPoint;
         this.length = length;
         this.complexity = complexity;
@@ -39,19 +48,19 @@ public class LineBus {
         this.id = id;
     }
 
-    public String getFirstPoint() {
-        return firstPoint;
+    public TripbusAddress getFirtPoint() {
+        return firtPoint;
     }
 
-    public void setFirstPoint(String firstPoint) {
-        this.firstPoint = firstPoint;
+    public void setFirtPoint(TripbusAddress firtPoint) {
+        this.firtPoint = firtPoint;
     }
 
-    public String getLastPoint() {
+    public TripbusAddress getLastPoint() {
         return lastPoint;
     }
 
-    public void setLastPoint(String lastPoint) {
+    public void setLastPoint(TripbusAddress lastPoint) {
         this.lastPoint = lastPoint;
     }
 
