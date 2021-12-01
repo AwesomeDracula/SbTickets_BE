@@ -25,7 +25,7 @@ public class WagesDriverDao implements WagesDriverImplement {
         try {
 
             String queryString = "SELECT td.tripBus_id AS tripBusId, dr.driver_name AS driverName, dr.fixed_salary AS fixedSalary, " +
-                    "td.wages AS wages, td.role_car AS roleCar\n" +
+                    "td.wages AS wages, td.role_car AS roleCar, td.scrap_dateTime AS scrapDateTime " +
                     "FROM tripbus_driver td JOIN driver dr  ON td.driver_id = dr.id WHERE dr.id = :driverId and td.scrap_dateTime >= :scrapTimeFrom and " +
                     "td.scrap_dateTime <= :scrapTimeTo";
             Query query = session.createSQLQuery(queryString).setResultTransformer(Transformers.aliasToBean(WagesDriverBean.class))

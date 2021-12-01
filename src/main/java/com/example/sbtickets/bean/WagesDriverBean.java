@@ -1,21 +1,25 @@
 package com.example.sbtickets.bean;
 
+import java.sql.Date;
+
 public class WagesDriverBean {
     private Integer tripBusId;
     private String driverName;
     private Double fixedSalary;
     private Double wages;
     private String roleCar;
+    private Date scrapDateTime;
 
     public WagesDriverBean() {
     }
 
-    public WagesDriverBean(Integer tripBusId, String driverName, Double fixedSalary, Double wages, String roleCar) {
+    public WagesDriverBean(Integer tripBusId, String driverName, Double fixedSalary, Double wages, String roleCar, Date scrapDateTime) {
         this.tripBusId = tripBusId;
         this.driverName = driverName;
         this.fixedSalary = fixedSalary;
         this.wages = wages;
         this.roleCar = roleCar;
+        this.scrapDateTime = scrapDateTime;
     }
 
     public Integer getTripBusId() {
@@ -56,5 +60,13 @@ public class WagesDriverBean {
 
     public void setRoleCar(String roleCar) {
         this.roleCar = roleCar;
+    }
+
+    public Date getScrapDateTime() {
+        return scrapDateTime;
+    }
+
+    public void setScrapDateTime(Date scrapDateTime) {
+        this.scrapDateTime = scrapDateTime;
     }
 }
