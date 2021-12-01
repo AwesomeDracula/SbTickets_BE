@@ -20,13 +20,6 @@ public class BusService implements BusImplement {
     }
 
     @Override
-    public Bus getBusById(Integer id) {
-        Optional<Bus> dbBus = busRepository.findById(id);
-        Bus foundBus = dbBus.get();
-        return foundBus;
-    }
-
-    @Override
     public Bus findBus(Integer carNumber) {
         return null;
     }
@@ -54,11 +47,6 @@ public class BusService implements BusImplement {
     @Override
     public void deleteBus(Integer id) {
         busRepository.deleteById(id);
-        return;
-    }
-    @Override
-    public void deleteBuses(List<Integer> ids) {
-        busRepository.deleteAllById(ids);
         return;
     }
 }
