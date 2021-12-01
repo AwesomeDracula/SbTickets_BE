@@ -97,5 +97,9 @@ public class UrlConst {
         public static final String HOME_USER = HOME + "/user";
 
         public static final String GET_USER = HOME_USER + "/getUser";
+
+        public static final String BOOK_SEAT = HOME_USER + "/bookSeat";
+
+        public static final String CHANGE_SEAT = HOME_USER + "/changeSeat";
     }
 }

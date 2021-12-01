@@ -1,14 +1,12 @@
 package com.example.sbtickets.controller;
 
 import com.example.sbtickets.bean.TripBusBean;
-import com.example.sbtickets.bean.TripBusDriverBean;
+import com.example.sbtickets.bean.TripBusCustomerBean;
 import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
+import com.example.sbtickets.dao.TripBusCustomerDao;
 import com.example.sbtickets.dao.TripBusDriverDao;
-import com.example.sbtickets.entity.Bus;
-import com.example.sbtickets.entity.LineBus;
-import com.example.sbtickets.entity.TripBus;
-import com.example.sbtickets.entity.TripBusDriver;
+import com.example.sbtickets.entity.*;
 import com.example.sbtickets.service.BusService;
 import com.example.sbtickets.service.LineBusService;
 import com.example.sbtickets.service.TripBusService;
@@ -18,9 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 public class TripBusController {
@@ -38,6 +34,9 @@ public class TripBusController {
 
     @Autowired
     TripBusDriverDao tripBusDriverDao;
+
+    @Autowired
+    TripBusCustomerDao tripBusCustomerDao;
 
     @RequestMapping(value = UrlConst.HOMEADIM.CREATE_TRIP_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> creatTripBus(@RequestBody TripBusBean tripBusBean) {
@@ -177,12 +176,30 @@ public class TripBusController {
             result.setBody(listData);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
-            result.setMsg(ex.getMessage());
             result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
 
+    @RequestMapping(value = UrlConst.HOME_USER.BOOK_SEAT, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> bookSeat(@RequestBody TripBusCustomerBean tripBusCustomerBean){
+        WrapperResponse result = new WrapperResponse();
+        try {
+            TripBusCustomer newSeat = new TripBusCustomer();
+            newSeat.setTripbusId(tripBusCustomerBean.getTripBusId());
+            newSeat.setCustomerId(tripBusCustomerBean.getCustomerId());
+            newSeat.setRoleCar(tripBusCustomerBean.getSeatBooked());
+            tripBusCustomerDao.insertTripBusCustomer(newSeat);
+            result.setMsg("Seats booked successfully");
+            result.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            logger.error(ex.getMessage());
+            result.setMsg(ex.getMessage());
+            result.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+        return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
+    }
 
 }

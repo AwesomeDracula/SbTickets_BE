@@ -2,6 +2,7 @@ package com.example.sbtickets.util;
 
 import java.util.Properties;
 
+import com.example.sbtickets.entity.TripBusCustomer;
 import com.example.sbtickets.entity.TripBusDriver;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -33,6 +34,7 @@ public class HibernateUtil {
                 configuration.setProperties(settings);
 
                 configuration.addAnnotatedClass(TripBusDriver.class);
+                configuration.addAnnotatedClass(TripBusCustomer.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
