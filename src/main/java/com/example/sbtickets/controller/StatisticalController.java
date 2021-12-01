@@ -2,6 +2,7 @@ package com.example.sbtickets.controller;
 
 import com.example.sbtickets.bean.TripBusBean;
 import com.example.sbtickets.bean.WagesDriverBean;
+import com.example.sbtickets.bean.WagesTimeBean;
 import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.dao.WagesDriverDao;
@@ -20,11 +21,11 @@ public class StatisticalController {
     @Autowired
     WagesDriverDao wagesDriverDao;
 
-    @RequestMapping(value = UrlConst.HOMEADIM.GET_WAGES_DRIVER, method = RequestMethod.PUT)
-    public ResponseEntity<WrapperResponse> getListWages(@PathVariable("driverId") Integer driverId) {
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_WAGES_DRIVER, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> getListWages(@RequestBody WagesTimeBean wagesTimeBean) {
         WrapperResponse result = new WrapperResponse();
         try {
-            List<WagesDriverBean> listData = wagesDriverDao.getList(driverId);
+            List<WagesDriverBean> listData = wagesDriverDao.getList(wagesTimeBean.getId(), wagesTimeBean.getScrapTime());
             result.setStatus(HttpStatus.OK.value());
             result.setBody(listData);
         }
@@ -36,4 +37,5 @@ public class StatisticalController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
+
 }

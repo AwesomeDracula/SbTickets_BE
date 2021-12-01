@@ -90,7 +90,7 @@ public class UrlConst {
         /**
          * API find name thong ke bang luong CuongNv
          */
-        public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages/{driverId}";
+        public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
     }
 
     public static class HOME_USER{

@@ -5,5 +5,5 @@ import com.example.sbtickets.bean.WagesDriverBean;
 import java.util.List;
 
 public interface WagesDriverImplement {
-    public List<WagesDriverBean> getList(Integer driverId);
+    public List<WagesDriverBean> getList(Integer driverId, String scrapTime);
 }
