@@ -201,5 +201,4 @@ public class TripBusController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
-
 }
