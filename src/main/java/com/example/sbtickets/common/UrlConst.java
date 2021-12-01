@@ -105,4 +105,5 @@ public class UrlConst {
 
         public static final String CHANGE_SEAT = HOME_USER + "/changeSeat";
     }
+
 }

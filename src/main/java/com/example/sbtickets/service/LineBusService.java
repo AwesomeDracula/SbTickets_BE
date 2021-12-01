@@ -81,4 +81,5 @@ public class LineBusService implements LineBusImplement {
         lineBusRepository.deleteAllById(ids);
         return;
     }
+
 }
