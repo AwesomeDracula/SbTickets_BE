@@ -36,6 +36,12 @@ public class BusService implements BusImplement {
 
     @Override
     public Bus findBus(Integer carNumber) {
+        try {
+            Optional<Bus> dbBus = busRepository.findById(carNumber);
+            return dbBus.get();
+        } catch (Exception ex){
+            logger.error(ex);
+        }
         return null;
     }
 

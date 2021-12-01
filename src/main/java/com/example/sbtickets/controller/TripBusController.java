@@ -42,8 +42,8 @@ public class TripBusController {
     public ResponseEntity<WrapperResponse> creatTripBus(@RequestBody TripBusBean tripBusBean) {
         WrapperResponse result = new WrapperResponse();
         try {
-            Bus bus = busService.findBus(tripBusBean.getBusId()).get();
-            LineBus lineBus = lineBusService.findLineBus(tripBusBean.getLineBusId());
+            Bus bus = busService.findBus(tripBusBean.getBusId());
+            LineBus lineBus = lineBusService.getLineBusById(tripBusBean.getLineBusId());
             TripBus tripBus = new TripBus();
             tripBus.setBus(bus);
             tripBus.setLineBus(lineBus);
@@ -122,8 +122,8 @@ public class TripBusController {
     public ResponseEntity<WrapperResponse> editTripBus(@RequestBody TripBusBean tripBusBean) {
         WrapperResponse result = new WrapperResponse();
         try {
-            Bus bus = busService.findBus(tripBusBean.getBusId()).get();
-            LineBus lineBus = lineBusService.findLineBus(tripBusBean.getLineBusId());
+            Bus bus = busService.findBus(tripBusBean.getBusId());
+            LineBus lineBus = lineBusService.getLineBusById(tripBusBean.getLineBusId());
             TripBus tripBus = new TripBus();
             tripBus = tripBusService.findTripBusById(tripBusBean.getTripBusId());
             tripBus.setBus(bus);
