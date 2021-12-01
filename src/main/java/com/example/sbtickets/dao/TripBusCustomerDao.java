@@ -14,19 +14,22 @@ import javax.persistence.Query;
 @Transactional
 @Service
 public class TripBusCustomerDao implements TripBusCustomerInterface {
-    private static final Logger logger = Logger.getLogger(TripBusController.class);
+    private static final Logger logger = Logger.getLogger(TripBusCustomerDao.class);
     @Override
     public void insertTripBusCustomer(TripBusCustomer tripBusCustomer) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         try{
             // start a transaction
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
+
 
             session.save(tripBusCustomer);
 
             //Commit the transaction
             session.getTransaction().commit();
+
         } catch (Exception ex) {
+            session.getTransaction().rollback();
             logger.error(ex.getMessage());
         }
     }
