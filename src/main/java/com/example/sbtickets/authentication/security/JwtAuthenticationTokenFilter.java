@@ -2,7 +2,7 @@ package com.example.sbtickets.authentication.security;
 
 
 import com.example.sbtickets.authentication.service.JwtService;
-import com.example.sbtickets.authentication.service.UserService;
+import com.example.sbtickets.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
@@ -34,7 +33,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
         String authToken = httpRequest.getHeader(TOKEN_HEADER);
         if (jwtService.validateToken(authToken)) {
             String username = jwtService.getUserIdFromJWT(authToken);
-            com.example.sbtickets.authentication.entity.User user = userService.loadUserByUsername(username);
+            com.example.sbtickets.entity.User user = userService.loadUserByUsername(username);
             if (user != null) {
                 boolean enabled = true;
                 boolean accountNonExpired = true;

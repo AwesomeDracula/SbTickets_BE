@@ -21,6 +21,7 @@ public class Bus {
     private Integer numberSeats;
     @Column(name = "year_use")
     private Integer yearUse;
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_mantain")
     private Date dateMantain;
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,15 +21,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 @RestController
+@CrossOrigin
 public class DriverController {
+    private static final Logger logger = Logger.getLogger(DriverController.class);
 
     @Autowired
     DriverService driverService;
 
 
-    @RequestMapping(value = UrlConst.GET_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getDriver() {
         WrapperResponse response = new WrapperResponse();
         List<Driver> result = new ArrayList<>();
@@ -38,6 +41,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
         }
         catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Not found");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -45,7 +49,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.GET_DRIVER_BY_ID, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.GET_DRIVER_BY_ID, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getDriverById(@PathVariable("id") Integer id){
         WrapperResponse response = new WrapperResponse();
         Driver driver;
@@ -54,6 +58,7 @@ public class DriverController {
             response.setBody(driver);
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot find driver");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -61,7 +66,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.CREATE_DRIVER, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOMEADIM.CREATE_DRIVER, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> createDriver(HttpServletRequest request, @RequestBody DriverBean driver){
         WrapperResponse response = new WrapperResponse();
         Driver newDriver, createdDriver;
@@ -74,13 +79,15 @@ public class DriverController {
                     driver.getAddress(),
                     driver.getDob(),
                     driver.getSeniority(),
-                    driver.getImage()
+                    driver.getImage(),
+                    driver.getFixedSalary()
             );
             createdDriver = driverService.createDriver(newDriver);
             response.setBody(createdDriver);
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Created new driver successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg("Cannot create new driver");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -88,7 +95,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.UPDATE_DRIVER, method = RequestMethod.PUT)
+    @RequestMapping(value = UrlConst.HOMEADIM.UPDATE_DRIVER, method = RequestMethod.PUT)
     public ResponseEntity<WrapperResponse> updateDriver(@PathVariable("id") Integer id, @RequestBody DriverBean driver){
         WrapperResponse response = new WrapperResponse();
         Driver updatingDriver;
@@ -101,12 +108,14 @@ public class DriverController {
                     driver.getAddress(),
                     driver.getDob(),
                     driver.getSeniority(),
-                    driver.getImage()
+                    driver.getImage(),
+                    driver.getFixedSalary()
             );
             driverService.updateDriver(id, updatingDriver);
             response.setMsg("Updated successfully");
             response.setStatus(HttpStatus.OK.value());
         } catch (Exception ex){
+            logger.error(ex);
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMsg("Updated fail");
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -114,7 +123,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.DELETE_DRIVER, method = RequestMethod.DELETE)
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_DRIVER, method = RequestMethod.DELETE)
     public ResponseEntity<WrapperResponse> deleteDriver(@PathVariable("id") Integer id){
         WrapperResponse response = new WrapperResponse();
         try{
@@ -122,6 +131,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -129,7 +139,7 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.DELETE_DRIVERS, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_DRIVERS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> deleteDrivers(@RequestBody Integer[] ids){
         WrapperResponse response = new WrapperResponse();
         try{
@@ -138,6 +148,7 @@ public class DriverController {
             response.setStatus(HttpStatus.OK.value());
             response.setMsg("Deleted successfully");
         } catch (Exception ex){
+            logger.error(ex);
             response.setMsg(ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
@@ -145,20 +156,21 @@ public class DriverController {
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = UrlConst.FIND_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.FIND_DRIVER, method = RequestMethod.GET)
     public ResponseEntity<Driver> findDriver(@RequestBody String name) {
         Driver result = new Driver();
         try {
             result = driverService.findDriver(name);
         }
         catch (Exception ex){
+            logger.error(ex);
             return new ResponseEntity<Driver>(result, HttpStatus.FAILED_DEPENDENCY);
         }
         return new ResponseEntity<Driver>(result, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = UrlConst.EXPORT_EXCEL_ALL_DRIVER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConst.HOMEADIM.EXPORT_EXCEL_ALL_DRIVER, method = RequestMethod.GET)
     public void exportToExcelDriver(HttpServletResponse response){
         try {
             response.setContentType("application/octet-stream");
@@ -176,6 +188,7 @@ public class DriverController {
             excelExporter.export(response);
         }
         catch (IOException ex){
+            logger.error(ex);
         }
     }
 }

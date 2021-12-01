@@ -12,60 +12,94 @@ public class UrlConst {
      */
 
     /**
-     * Home url hệ thống Sbtickets
-     */
-    public static final String HOME = "/Sbtickets";
-
-    /**
      * API login hệ thống Sbtickets
      */
+
+    public static final String HOME = "/Sbtickets";
     public static final String LOGIN_SBTICKETS = HOME + "/login";
 
-    /**
-     * API getAllDriver CuongNv
-     */
-    public static final String GET_DRIVER = HOME + "/getDriver";
+    public static final String USER_REGISTER = HOME + "/register";
 
-    public static final String GET_DRIVER_BY_ID = HOME + "/getDriver/{id}";
+    public static class HOMEADIM{
 
-    /**
-     * API find name Driver CuongNv
-     */
-    public static final String FIND_DRIVER = HOME + "/findDriver";
+        /**
+         * Home url hệ thống Sbtickets (ROLE_ADMIN)
+         */
+        public static final String HOMEADIM = HOME + "/admin";
+        /**
+         * API getAllDriver CuongNv
+         */
+        public static final String GET_DRIVER = HOMEADIM + "/getDriver";
 
-    public static final String CREATE_DRIVER = HOME + "/createDriver";
+        public static final String GET_DRIVER_BY_ID = HOMEADIM + "/getDriver/{id}";
 
-    public static final String UPDATE_DRIVER = HOME + "/updateDriver/{id}";
+        /**
+         * API find name Driver CuongNv
+         */
+        public static final String FIND_DRIVER = HOMEADIM + "/findDriver";
 
-    public static final String DELETE_DRIVER = HOME + "/deleteDriver/{id}";
+        public static final String CREATE_DRIVER = HOMEADIM + "/createDriver";
 
-    public static final String DELETE_DRIVERS = HOME + "/deleteDrivers";
+        public static final String UPDATE_DRIVER = HOMEADIM + "/updateDriver/{id}";
 
-    public static final String EXPORT_EXCEL_ALL_DRIVER = HOME + "/driver/excelAll";
+        public static final String DELETE_DRIVER = HOMEADIM + "/deleteDriver/{id}";
 
-    /**
-     * API getAllBus SonPK
-     */
-    public static final String GET_BUS = HOME + "/getBus";
+        public static final String DELETE_DRIVERS = HOMEADIM + "/deleteDrivers";
 
-    public static final String FIND_BUS = HOME + "/findBus";
+        public static final String EXPORT_EXCEL_ALL_DRIVER = HOMEADIM + "/driver/excelAll";
 
-    public static final String CREATE_BUS = HOME + "/createBus";
+        /**
+         * API getAllBus SonPK
+         */
+        public static final String GET_BUS = HOMEADIM + "/getBus";
 
-    public static final String UPDATE_BUS = HOME + "/updateBus/{id}";
+        public static final String FIND_BUS = HOMEADIM + "/findBus/{id}";
 
-    public static final String DELETE_BUS = HOME + "/deleteBus/{id}";
+        public static final String CREATE_BUS = HOMEADIM + "/createBus";
 
-    /**
-     * API find name Line Bus HaLv
-     */
-    public static final String GET_LINE_BUS = HOME + "/getLineBus";
+        public static final String UPDATE_BUS = HOMEADIM + "/updateBus/{id}";
 
-    public static final String FIND_LINE_BUS = HOME + "/findLineBus";
+        public static final String DELETE_BUS = HOMEADIM + "/deleteBus/{id}";
 
-    public static final String CREATE_LINE_BUS = HOME + "/createLineBus";
+        /**
+         * API find name Line Bus HaLv
+         */
+        public static final String GET_LINE_BUS = HOMEADIM + "/getLineBus";
 
-    public static final String UPDATE_LINE_BUS = HOME + "/updateLineBus/{id}";
+        public static final String FIND_LINE_BUS = HOMEADIM + "/findLineBus";
 
-    public static final String DELETE_LINE_BUS = HOME + "/deleteLineBus/{id}";
+        public static final String CREATE_LINE_BUS = HOMEADIM + "/createLineBus";
+
+        public static final String UPDATE_LINE_BUS = HOMEADIM + "/updateLineBus/{id}";
+
+        public static final String DELETE_LINE_BUS = HOMEADIM + "/deleteLineBus/{id}";
+
+        /**
+         * API find name TripBus CuongNv
+         */
+        public static final String CREATE_TRIP_BUS = HOMEADIM + "/createTripBus";
+
+        public static final String EDIT_TRIP_BUS = HOMEADIM + "/editTripBus";
+
+        public static final String DELETE_TRIP_BUS = HOMEADIM + "/deleteTripBus/{id}";
+
+        public static final String FIND_TRIP_BUS = HOMEADIM + "/findTripBus/{id}";
+
+        public static final String GET_ALL_TRIP_BUS = HOMEADIM + "/getAllTripBus";
+
+        /**
+         * API find name thong ke bang luong CuongNv
+         */
+        public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
+    }
+
+    public static class HOME_USER{
+        public static final String HOME_USER = HOME + "/user";
+
+        public static final String GET_USER = HOME_USER + "/getUser";
+
+        public static final String BOOK_SEAT = HOME_USER + "/bookSeat";
+
+        public static final String CHANGE_SEAT = HOME_USER + "/changeSeat";
+    }
 }

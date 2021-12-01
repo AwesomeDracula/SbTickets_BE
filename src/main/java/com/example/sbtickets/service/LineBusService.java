@@ -1,53 +1,82 @@
 package com.example.sbtickets.service;
 
-import com.example.sbtickets.bean.LineBusBean;
 import com.example.sbtickets.entity.LineBus;
 import com.example.sbtickets.repository.LineBusRepository;
+import com.example.sbtickets.service.impl.LineBusImplement;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LineBusService implements LineBusImplement{
+public class LineBusService implements LineBusImplement {
+    private static final Logger logger = Logger.getLogger(LineBusService.class);
 
     @Autowired
     LineBusRepository lineBusRepository;
     @Override
     public List<LineBus> getLineBus() {
-        List<LineBus> listLineBus = lineBusRepository.findAll();
-        return  listLineBus;
+        try {
+            List<LineBus> listLineBus = lineBusRepository.findAll();
+            return  listLineBus;
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return  null;
     }
 
     @Override
     public LineBus findLineBus(Integer id) {
+        try {
+            return lineBusRepository.findById(id).get();
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
         return null;
     }
 
     @Override
     public LineBus createLineBus(LineBus lineBus) {
-        LineBus newLineBus = lineBusRepository.save(lineBus);
-        return newLineBus;
+        try {
+            LineBus newLineBus = lineBusRepository.save(lineBus);
+            return newLineBus;
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return  null;
     }
 
     @Override
     public void updateLineBus(Integer id, LineBus lineBus) {
-        Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
-        LineBus foundLineBus = dbLineBus.get();
-        foundLineBus.setId(id);
-        foundLineBus.setFirstPoint(lineBus.getFirstPoint());
-        foundLineBus.setLastPoint(lineBus.getLastPoint());
-        foundLineBus.setLength(lineBus.getLength());
-        foundLineBus.setComplexity(lineBus.getComplexity());
-        lineBusRepository.save(foundLineBus);
-        return;
+        try {
+            Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
+            LineBus foundLineBus = dbLineBus.get();
+            foundLineBus.setId(id);
+            foundLineBus.setFirstPoint(lineBus.getFirstPoint());
+            foundLineBus.setLastPoint(lineBus.getLastPoint());
+            foundLineBus.setLength(lineBus.getLength());
+            foundLineBus.setComplexity(lineBus.getComplexity());
+            lineBusRepository.save(foundLineBus);
+            return;
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
     }
 
     @Override
     public void deleteLineBus(Integer id) {
-        lineBusRepository.deleteById(id);
-        return;
+        try {
+            lineBusRepository.deleteById(id);
+            return;
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
     }
 }
