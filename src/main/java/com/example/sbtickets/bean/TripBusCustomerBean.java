@@ -10,5 +10,5 @@ import java.util.List;
 public class TripBusCustomerBean {
     private Integer tripBusId;
     private Integer customerId;
-    private Integer SeatBooked;
+    private Integer seatBooked;
 }
