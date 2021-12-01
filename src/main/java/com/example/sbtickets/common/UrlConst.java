@@ -66,13 +66,15 @@ public class UrlConst {
          */
         public static final String GET_LINE_BUS = HOMEADIM + "/getLineBus";
 
-        public static final String FIND_LINE_BUS = HOMEADIM + "/findLineBus";
+        public static final String GET_LINE_BUS_BY_ID = HOMEADIM + "/getLineBus/{id}";
 
         public static final String CREATE_LINE_BUS = HOMEADIM + "/createLineBus";
 
         public static final String UPDATE_LINE_BUS = HOMEADIM + "/updateLineBus/{id}";
 
         public static final String DELETE_LINE_BUS = HOMEADIM + "/deleteLineBus/{id}";
+
+        public static final String DELETE_LINE_BUSES = HOMEADIM + "/deleteLineBuses";
 
         /**
          * API find name TripBus CuongNv
@@ -91,6 +93,7 @@ public class UrlConst {
          * API find name thong ke bang luong CuongNv
          */
         public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
+
     }
 
     public static class HOME_USER{

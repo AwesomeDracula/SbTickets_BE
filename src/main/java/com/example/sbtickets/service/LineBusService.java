@@ -29,14 +29,10 @@ public class LineBusService implements LineBusImplement {
     }
 
     @Override
-    public LineBus findLineBus(Integer id) {
-        try {
-            return lineBusRepository.findById(id).get();
-        }
-        catch (Exception ex){
-            logger.error(ex.getMessage());
-        }
-        return null;
+    public LineBus getLineBusById(Integer id) {
+        Optional<LineBus> dbLineBus = lineBusRepository.findById(id);
+        LineBus foundLineBus = dbLineBus.get();
+        return foundLineBus;
     }
 
     @Override
@@ -78,5 +74,11 @@ public class LineBusService implements LineBusImplement {
         catch (Exception ex){
             logger.error(ex.getMessage());
         }
+    }
+
+    @Override
+    public void deleteLineBuses(List<Integer> ids) {
+        lineBusRepository.deleteAllById(ids);
+        return;
     }
 }

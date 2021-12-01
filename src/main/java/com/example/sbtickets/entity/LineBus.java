@@ -23,9 +23,8 @@ public class LineBus {
 
     }
 
-    public LineBus(Integer id, String firstPoint, String lastPoint, Integer length, Integer complexity)
+    public LineBus(String firstPoint, String lastPoint, Integer length, Integer complexity)
     {
-        this.id = id;
         this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
         this.length = length;
