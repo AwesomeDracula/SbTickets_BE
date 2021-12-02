@@ -111,7 +111,7 @@ public class UrlConst {
 
         public static final String FIND_BY_TRIPBUS = HOME_USER + "/findByTripBus";
 
-        public static final String GET_LOACTION = HOME_USER + "/getloaction";
+        public static final String GET_LOACTION = HOME_USER + "/getLocation";
     }
 
 }

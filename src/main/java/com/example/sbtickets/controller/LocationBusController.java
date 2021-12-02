@@ -23,7 +23,7 @@ public class LocationBusController {
     @Autowired
     TripBusAddressService tripBusAddressService;
 
-    @RequestMapping(value = UrlConst.HOME_USER.GET_LOACTION, method = RequestMethod.POST)
+    @RequestMapping(value = UrlConst.HOME_USER.GET_LOACTION, method = RequestMethod.GET)
     public ResponseEntity<WrapperResponse> getLineBus() {
         WrapperResponse response = new WrapperResponse();
         try {

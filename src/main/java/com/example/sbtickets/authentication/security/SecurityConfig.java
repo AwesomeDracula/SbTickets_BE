@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         // Disable crsf cho đường dẫn /Sbtickets/**
         http.csrf().ignoringAntMatchers(UrlConst.HOME + "/**");
         http.authorizeRequests().antMatchers(UrlConst.HOME + "/login**").permitAll();
+        http.authorizeRequests().antMatchers(UrlConst.HOME_USER.HOME_USER + "/**").permitAll();
         http.antMatcher(UrlConst.HOME + "/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, UrlConst.HOMEADIM.HOMEADIM + "/**").access("hasRole('ROLE_ADMIN')")
