@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -46,6 +47,8 @@ public class UserController{
                 }
                 else{
                     result.setRole("ROLE_USER");
+                    User loggingInUser = userService.loadUserByUsername(user.getUsername());
+                    result.setCustomerId(customerService.findCustomerId(loggingInUser.getId()));
                 }
             } else {
                 result.setMessage("Wrong userId and password");
