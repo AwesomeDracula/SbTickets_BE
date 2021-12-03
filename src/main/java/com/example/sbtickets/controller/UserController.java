@@ -91,4 +91,25 @@ public class UserController{
         }
         return  new ResponseEntity<WrapperResponse>(result, HttpStatus.FAILED_DEPENDENCY);
     }
+
+    @RequestMapping(value = UrlConst.HOMEADIM.UPDATE_ACCOUNT, method = RequestMethod.PUT)
+    public ResponseEntity<WrapperResponse> update(@PathVariable("id") Integer id, @RequestBody UserBean user){
+        WrapperResponse response = new WrapperResponse();
+        User updatingUser;
+        try{
+            updatingUser = new User(
+                    id,
+                    user.getUsername(),
+                    user.getPassword()
+            );
+            userService.update(id, updatingUser);
+            response.setMsg("Updated successfully");
+            response.setStatus(HttpStatus.OK.value());
+        } catch (Exception ex){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMsg("Updated fail");
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+        }
+        return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
 }

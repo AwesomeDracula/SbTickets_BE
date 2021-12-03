@@ -1,5 +1,6 @@
 package com.example.sbtickets.service;
 
+import com.example.sbtickets.entity.Customer;
 import com.example.sbtickets.entity.User;
 import com.example.sbtickets.repository.AccountRepository;
 import com.example.sbtickets.service.impl.UserServiceImplement;
@@ -83,6 +84,15 @@ public class UserService implements UserServiceImplement {
         return null;
     }
 
+    @Override
+    public void update(Integer id, User user) {
+        Optional<User> dbAccount = accountRepository.findById(id);
+        User foundUser = dbAccount.get();
+        foundUser.setUserName(user.getUserName());
+        foundUser.setPassword(user.getPassword());
+        accountRepository.save(foundUser);
+        return;
+    }
 
 
 }
