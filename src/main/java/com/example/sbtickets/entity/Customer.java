@@ -40,7 +40,7 @@ public class Customer{
         this.user = user;
     }
 
-    public Customer(Integer id, String fullName, String cmt, String address, String birthDay) {
+    public Customer(String fullName, String cmt, String address, String birthDay) {
         this.id = id;
         this.fullName = fullName;
         this.cmt = cmt;

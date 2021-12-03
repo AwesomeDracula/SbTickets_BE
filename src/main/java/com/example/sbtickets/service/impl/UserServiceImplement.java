@@ -11,6 +11,7 @@ public interface UserServiceImplement {
     public Optional<User> findById(int id);
     public boolean add(User user);
     public boolean delete(int id);
+    public void update(Integer id, User user);
     public boolean checkLogin(User user);
     public User loadUserByUsername(String userName);
 }

@@ -98,6 +98,12 @@ public class UrlConst {
          */
         public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
 
+
+        /**
+         * API Edit Customer User HaLv
+         */
+        public static final String UPDATE_CUSTOMER = HOMEADIM + "/updateCustomer/{id}";
+        public static final String UPDATE_ACCOUNT = HOMEADIM + "/update/{id}";
     }
 
     public static class HOME_USER{
