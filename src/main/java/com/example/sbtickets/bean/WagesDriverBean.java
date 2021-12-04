@@ -8,12 +8,12 @@ public class WagesDriverBean {
     private Double fixedSalary;
     private Double wages;
     private String roleCar;
-    private Date scrapDateTime;
+    private String scrapDateTime;
 
     public WagesDriverBean() {
     }
 
-    public WagesDriverBean(Integer tripBusId, String driverName, Double fixedSalary, Double wages, String roleCar, Date scrapDateTime) {
+    public WagesDriverBean(Integer tripBusId, String driverName, Double fixedSalary, Double wages, String roleCar, String scrapDateTime) {
         this.tripBusId = tripBusId;
         this.driverName = driverName;
         this.fixedSalary = fixedSalary;
@@ -62,11 +62,11 @@ public class WagesDriverBean {
         this.roleCar = roleCar;
     }
 
-    public Date getScrapDateTime() {
+    public String getScrapDateTime() {
         return scrapDateTime;
     }
 
-    public void setScrapDateTime(Date scrapDateTime) {
+    public void setScrapDateTime(String scrapDateTime) {
         this.scrapDateTime = scrapDateTime;
     }
 }
