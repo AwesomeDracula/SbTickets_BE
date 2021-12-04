@@ -29,13 +29,28 @@ public class LocationBusController {
         try {
             response.setBody(tripBusAddressService.listAddress());
             response.setStatus(HttpStatus.OK.value());
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             logger.error(ex);
             response.setMsg("Not found");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
         }
         return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
+    }
+
+        @RequestMapping(value = UrlConst.HOMEADIM.GET_LOACTION, method = RequestMethod.GET)
+        public ResponseEntity<WrapperResponse> getLoaction() {
+            WrapperResponse response = new WrapperResponse();
+            try {
+                response.setBody(tripBusAddressService.listAddress());
+                response.setStatus(HttpStatus.OK.value());
+            }
+            catch (Exception ex){
+                logger.error(ex);
+                response.setMsg("Not found");
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                return new ResponseEntity<WrapperResponse>(response, HttpStatus.FAILED_DEPENDENCY);
+            }
+            return new ResponseEntity<WrapperResponse>(response, HttpStatus.OK);
     }
 }

@@ -25,4 +25,15 @@ public class CustomerService implements CustomerImplement {
        return true;
     }
 
+    @Override
+    public Customer getCusById(Integer id) {
+        try {
+            return  customerRepository.findById(id).get();
+        }
+        catch (Exception ex){
+            logger.error(ex);
+        }
+        return null;
+    }
+
 }

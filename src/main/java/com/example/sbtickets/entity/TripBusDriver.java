@@ -22,8 +22,18 @@ public class TripBusDriver implements Serializable {
     private Double  wages;
     @Column(name = "date")
     private Date date;
+    @Column(name = "scrap_dateTime")
+    private String scrapDateTime;
 
     public TripBusDriver() {
+    }
+
+    public String getScrapDateTime() {
+        return scrapDateTime;
+    }
+
+    public void setScrapDateTime(String scrapDateTime) {
+        this.scrapDateTime = scrapDateTime;
     }
 
     public Integer getTripbusId() {

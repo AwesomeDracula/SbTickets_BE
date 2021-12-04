@@ -12,7 +12,7 @@ public class LineBus {
     private Integer id;
     @OneToOne
     @JoinColumn(name = "first_id")
-    private TripbusAddress firtPoint;
+    private TripbusAddress firstPoint;
     @OneToOne
     @JoinColumn(name = "last_id")
     private TripbusAddress lastPoint;
@@ -25,16 +25,16 @@ public class LineBus {
 
     }
 
-    public LineBus(Integer id, TripbusAddress firtPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+    public LineBus(Integer id, TripbusAddress firstPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
         this.id = id;
-        this.firtPoint = firtPoint;
+        this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
         this.length = length;
         this.complexity = complexity;
     }
 
-    public LineBus(TripbusAddress firtPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
-        this.firtPoint = firtPoint;
+    public LineBus(TripbusAddress firstPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+        this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
         this.length = length;
         this.complexity = complexity;
@@ -48,12 +48,12 @@ public class LineBus {
         this.id = id;
     }
 
-    public TripbusAddress getFirtPoint() {
-        return firtPoint;
+    public TripbusAddress getfirstPoint() {
+        return firstPoint;
     }
 
-    public void setFirtPoint(TripbusAddress firtPoint) {
-        this.firtPoint = firtPoint;
+    public void setfirstPoint(TripbusAddress firstPoint) {
+        this.firstPoint = firstPoint;
     }
 
     public TripbusAddress getLastPoint() {

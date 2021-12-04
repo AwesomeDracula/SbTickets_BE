@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class TripBusController {
@@ -56,16 +57,18 @@ public class TripBusController {
                 TripBusDriver driverBus = new TripBusDriver();
                 driverBus.setDriverId(tripBusBean.getDriverId());
                 driverBus.setTripbusId(tripBus.getId());
-                driverBus.setWages(1200.0);
+                driverBus.setWages((double) (lineBus.getComplexity()*60000));
                 driverBus.setDate(tripBus.getTimeTrip());
                 driverBus.setRoleCar("1");
+                driverBus.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
                 tripBusDriverDao.insertTripBusDriver(driverBus);
 
                 TripBusDriver assistantDriver = new TripBusDriver();
                 assistantDriver.setDriverId(tripBusBean.getAssistantBusId());
                 assistantDriver.setTripbusId(tripBus.getId());
-                assistantDriver.setWages(600.0);
+                assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
                 assistantDriver.setDate(tripBus.getTimeTrip());
+                assistantDriver.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
                 assistantDriver.setRoleCar("0");
                 tripBusDriverDao.insertTripBusDriver(assistantDriver);
 
@@ -138,7 +141,7 @@ public class TripBusController {
             TripBusDriver driverBus = new TripBusDriver();
             driverBus.setDriverId(tripBusBean.getDriverId());
             driverBus.setTripbusId(tripBus.getId());
-            driverBus.setWages(1200.0);
+            driverBus.setWages((double) (lineBus.getComplexity()*60000));
             driverBus.setDate(tripBus.getTimeTrip());
             driverBus.setRoleCar("1");
             driverBus.setTripbusId(tripBusBean.getTripBusId());
@@ -148,7 +151,7 @@ public class TripBusController {
             TripBusDriver assistantDriver = new TripBusDriver();
             assistantDriver.setDriverId(tripBusBean.getAssistantBusId());
             assistantDriver.setTripbusId(tripBus.getId());
-            assistantDriver.setWages(600.0);
+            assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
             assistantDriver.setDate(tripBus.getTimeTrip());
             assistantDriver.setRoleCar("0");
             assistantDriver.setTripbusId(tripBusBean.getTripBusId());
@@ -218,4 +221,6 @@ public class TripBusController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
+
+
 }
