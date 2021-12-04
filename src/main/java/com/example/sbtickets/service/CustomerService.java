@@ -51,4 +51,16 @@ public class CustomerService implements CustomerImplement {
         customerRepository.save(foundCustomer);
         return;
     }
+
+    @Override
+    public Customer getCustomerDetail(Integer id) {
+        try {
+            Optional<Customer> dbCustomer = customerRepository.findById(id);
+            Customer foundCustomer = dbCustomer.get();
+            return foundCustomer;
+        } catch (Exception ex){
+            logger.error(ex);
+            return null;
+        }
+    }
 }

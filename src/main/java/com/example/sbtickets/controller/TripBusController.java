@@ -187,13 +187,26 @@ public class TripBusController {
     public ResponseEntity<WrapperResponse> bookSeat(@RequestBody TripBusCustomerBean tripBusCustomerBean){
         WrapperResponse result = new WrapperResponse();
         try {
-            TripBusCustomer newSeat = new TripBusCustomer();
-            newSeat.setTripbusId(tripBusCustomerBean.getTripBusId());
-            newSeat.setCustomerId(tripBusCustomerBean.getCustomerId());
-            newSeat.setRoleCar(tripBusCustomerBean.getSeatBooked());
-            tripBusCustomerDao.insertTripBusCustomer(newSeat);
-            result.setMsg("Seats booked successfully");
-            result.setStatus(HttpStatus.OK.value());
+            TripBus tripBus = tripBusService.findTripBusById(tripBusCustomerBean.getTripBusId());
+            if(tripBus.getBus().getNumberSeats() - 2 <= tripBus.getNumberGuest()){
+                result.setMsg("This trip bus is full of guests");
+                result.setStatus(HttpStatus.FORBIDDEN.value());
+            }
+            if(tripBusService.checkIfCustomerHadTicket(tripBusCustomerBean.getTripBusId(), tripBusCustomerBean.getCustomerId())){
+                result.setMsg("This customer has already booked 1 ticket in this trip bus");
+                result.setStatus(HttpStatus.FORBIDDEN.value());
+            } else {
+                TripBusCustomer newSeat = new TripBusCustomer();
+                newSeat.setTripbusId(tripBusCustomerBean.getTripBusId());
+                newSeat.setCustomerId(tripBusCustomerBean.getCustomerId());
+                newSeat.setRoleCar(tripBusCustomerBean.getSeatBooked());
+                tripBusCustomerDao.insertTripBusCustomer(newSeat);
+                Integer currentPassengerNum = tripBus.getNumberGuest();
+                tripBus.setNumberGuest(currentPassengerNum + 1);
+                tripBusService.updateTripBus(tripBus);
+                result.setMsg("Seats booked successfully");
+                result.setStatus(HttpStatus.OK.value());
+            }
         } catch (Exception ex){
             logger.error(ex.getMessage());
             result.setMsg(ex.getMessage());

@@ -138,4 +138,21 @@ public class TripBusService implements TripBusImplement {
         }
         return null;
     }
+
+    @Override
+    public boolean checkIfCustomerHadTicket(Integer tripBusId, Integer customerId) {
+        try {
+            List<TripBusCustomer> listTripBusCustomer = tripBusCustomerDao.findByTripBusId(tripBusId);
+            for(TripBusCustomer cus: listTripBusCustomer){
+                if(customerId == cus.getCustomerId()){
+                    return true;
+                }
+            }
+            return false;
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return false;
+    }
 }

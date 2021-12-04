@@ -18,12 +18,12 @@ public class Customer{
     @Column(name = "address")
     private String address;
     @Column(name = "birth_Day")
-    private String birthDay;
+    private Date birthDay;
     @OneToOne
     @JoinColumn(name = "account_id")
     private User user;
 
-    public Customer(Integer id, String fullName, String cmt, String address, String birthDay, User user) {
+    public Customer(Integer id, String fullName, String cmt, String address, Date birthDay, User user) {
         this.id = id;
         this.fullName = fullName;
         this.cmt = cmt;
@@ -32,7 +32,7 @@ public class Customer{
         this.user = user;
     }
 
-    public Customer(String fullName, String cmt, String address, String birthDay, User user) {
+    public Customer(String fullName, String cmt, String address, Date birthDay, User user) {
         this.fullName = fullName;
         this.cmt = cmt;
         this.address = address;
@@ -40,7 +40,7 @@ public class Customer{
         this.user = user;
     }
 
-    public Customer(String fullName, String cmt, String address, String birthDay) {
+    public Customer(String fullName, String cmt, String address, Date birthDay) {
         this.id = id;
         this.fullName = fullName;
         this.cmt = cmt;
@@ -72,7 +72,7 @@ public class Customer{
         return address;
     }
 
-    public String getBirthDay() {
+    public Date getBirthDay() {
         return birthDay;
     }
 
@@ -96,7 +96,7 @@ public class Customer{
         this.address = address;
     }
 
-    public void setBirthDay(String birthDay) {
+    public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
     }
 

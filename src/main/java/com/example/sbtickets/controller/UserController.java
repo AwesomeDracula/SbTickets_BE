@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -78,7 +81,9 @@ public class UserController{
                 userService.add(user);
                 //
                 user = userService.loadUserByUsername(user.getUserName());
-                if(customerService.addCustomer(new Customer(userbean.getUserName(), userbean.getCmt(), userbean.getAddress(), userbean.getBirthDay(), user))){
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateTime = df.parse(userbean.getBirthDay());
+                if(customerService.addCustomer(new Customer(userbean.getUserName(), userbean.getCmt(), userbean.getAddress(), dateTime, user))){
                     result.setMsg("Create Account SuccessFull");
                     result.setStatus(HttpStatus.OK.value());
                     return  new ResponseEntity<WrapperResponse>(result, HttpStatus.OK);
@@ -92,7 +97,7 @@ public class UserController{
         return  new ResponseEntity<WrapperResponse>(result, HttpStatus.FAILED_DEPENDENCY);
     }
 
-    @RequestMapping(value = UrlConst.HOMEADIM.UPDATE_ACCOUNT, method = RequestMethod.PUT)
+    @RequestMapping(value = UrlConst.HOME_USER.UPDATE_ACCOUNT, method = RequestMethod.PUT)
     public ResponseEntity<WrapperResponse> update(@PathVariable("id") Integer id, @RequestBody UserBean user){
         WrapperResponse response = new WrapperResponse();
         User updatingUser;

@@ -15,4 +15,5 @@ public interface TripBusImplement {
     public TripBus findTripBus(Integer id);
     public List<TripBus> findByFirtLastPoint(AllTripBusByLastPointBean allTripBusByLastPointBean);
     public List<ObjectByTripBus> findByFirtLastPointObject(AllTripBusByLastPointBean allTripBusByLastPointBean);
+    public boolean checkIfCustomerHadTicket(Integer tripBusId ,Integer customerId);
 }
