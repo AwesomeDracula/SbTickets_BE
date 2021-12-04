@@ -16,7 +16,7 @@ public class TripBus{
     private Integer id;
     @ManyToOne
     @JoinColumn(name="bus_id", nullable=false)
-    private Bus bus;
+    public Bus bus;
     @ManyToOne
     @JoinColumn(name="linebus_id", nullable=false)
     private LineBus lineBus;
