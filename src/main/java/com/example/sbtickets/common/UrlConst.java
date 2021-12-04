@@ -63,7 +63,7 @@ public class UrlConst {
 
         public static final String DELETE_BUSES = HOMEADIM + "/deleteBuses";
 
-        public static final String GET_BUS_BY_ID = HOME + "/getBus/{id}";
+        public static final String GET_BUS_BY_ID = HOMEADIM + "/getBus/{id}";
 
         /**
          * API find name Line Bus HaLv
@@ -97,6 +97,19 @@ public class UrlConst {
          * API find name thong ke bang luong CuongNv
          */
         public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
+
+
+        public static final String GET_LOACTION = HOMEADIM + "/getLocation";
+
+        /**
+         * API thong ke chuyen xe di duoc trong 30 ngay lien tiep CuongNv
+         */
+        public static final String COUNT_TRIP_BY_WEEK = HOMEADIM + "/getCountTripByWeek";
+
+        /**
+         * API thong ke chuyen xe da co bao nhieu nguoi dat coc CuongNv
+         */
+        public static final String GET_TRIPBUS_CUSTOMER = HOMEADIM + "/getTripBusCustomer/{id}";
 
     }
 
