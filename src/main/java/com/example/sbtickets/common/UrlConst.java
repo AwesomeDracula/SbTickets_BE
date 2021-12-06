@@ -98,7 +98,6 @@ public class UrlConst {
          */
         public static final String GET_WAGES_DRIVER = HOMEADIM + "/getListWages";
 
-
         public static final String GET_LOACTION = HOMEADIM + "/getLocation";
 
         /**
@@ -110,6 +109,12 @@ public class UrlConst {
          * API thong ke chuyen xe da co bao nhieu nguoi dat coc CuongNv
          */
         public static final String GET_TRIPBUS_CUSTOMER = HOMEADIM + "/getTripBusCustomer/{id}";
+        /**
+         * API thong ke doanh thu xe theo thoi gian SonPK
+         */
+        public static final String GET_REVENUE_BUS = HOMEADIM + "/getRevenueBus";
+
+        public static final String GET_REVENUE_BUS_BY_ID = HOMEADIM + "/getRevenueBus/{busId}";
 
     }
 
