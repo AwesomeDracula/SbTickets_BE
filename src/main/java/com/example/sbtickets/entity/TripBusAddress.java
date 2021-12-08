@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tripbus_address")
-public class TripbusAddress {
+public class TripBusAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id_address")
     private Integer id;
     @Column(name = "address")
     private String address;
 
-    public TripbusAddress(Integer id, String address) {
-        this.id = id;
+    public TripBusAddress( String address) {
+        // this.id = id;
         this.address = address;
     }
 
-    public TripbusAddress() {
+    public TripBusAddress() {
     }
 
     public Integer getId() {
