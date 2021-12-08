@@ -48,6 +48,7 @@ public class CustomerService implements CustomerImplement {
         foundCustomer.setCmt(customer.getCmt());
         foundCustomer.setAddress(customer.getAddress());
         foundCustomer.setBirthDay(customer.getBirthDay());
+        foundCustomer.setEmail(customer.getEmail());
         customerRepository.save(foundCustomer);
         return;
     }

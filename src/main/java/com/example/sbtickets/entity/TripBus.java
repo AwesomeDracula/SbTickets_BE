@@ -30,6 +30,15 @@ public class TripBus{
     public TripBus() {
     }
 
+    public TripBus(Integer id, Bus bus, LineBus lineBus, Integer numberGuest, Double priceTrip, Date timeTrip) {
+        this.id = id;
+        this.bus = bus;
+        this.lineBus = lineBus;
+        this.numberGuest = numberGuest;
+        this.priceTrip = priceTrip;
+        this.timeTrip = timeTrip;
+    }
+
     public Integer getId() {
         return id;
     }

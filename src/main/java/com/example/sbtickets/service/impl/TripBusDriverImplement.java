@@ -1,4 +1,4 @@
-package com.example.sbtickets.dao.impl;
+package com.example.sbtickets.service.impl;
 
 import com.example.sbtickets.entity.TripBusDriver;
 
