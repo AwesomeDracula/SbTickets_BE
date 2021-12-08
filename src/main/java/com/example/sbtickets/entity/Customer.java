@@ -19,32 +19,37 @@ public class Customer{
     private String address;
     @Column(name = "birth_Day")
     private Date birthDay;
+    @Column(name = "email")
+    private String email;
     @OneToOne
     @JoinColumn(name = "account_id")
     private User user;
 
-    public Customer(Integer id, String fullName, String cmt, String address, Date birthDay, User user) {
+    public Customer(Integer id, String fullName, String cmt, String address, Date birthDay, String email, User user) {
         this.id = id;
         this.fullName = fullName;
         this.cmt = cmt;
         this.address = address;
         this.birthDay = birthDay;
+        this.email = email;
         this.user = user;
     }
 
-    public Customer(String fullName, String cmt, String address, Date birthDay, User user) {
+    public Customer(String fullName, String cmt, String address, Date birthDay, String email, User user) {
         this.fullName = fullName;
         this.cmt = cmt;
         this.address = address;
         this.birthDay = birthDay;
+        this.email = email;
         this.user = user;
     }
 
-    public Customer(String fullName, String cmt, String address, Date birthDay) {
+    public Customer(String fullName, String cmt, String address, String email, Date birthDay) {
         this.id = id;
         this.fullName = fullName;
         this.cmt = cmt;
         this.address = address;
+        this.email = email;
         this.birthDay = birthDay;
     }
 
@@ -102,5 +107,13 @@ public class Customer{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

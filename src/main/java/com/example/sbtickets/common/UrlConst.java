@@ -111,6 +111,12 @@ public class UrlConst {
          */
         public static final String GET_TRIPBUS_CUSTOMER = HOMEADIM + "/getTripBusCustomer/{id}";
 
+        /**
+         * API gui test gui mail
+         */
+        public static final String SEND_MAIL_CUSTOMERR = HOMEADIM + "/sendMailCustomer";
+
+
     }
 
     public static class HOME_USER{

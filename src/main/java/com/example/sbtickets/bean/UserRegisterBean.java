@@ -10,6 +10,7 @@ public class UserRegisterBean {
     private String cmt;
     private String address;
     private String birthDay;
+    private String email;
     private String userName;
     private String passWord;
 }

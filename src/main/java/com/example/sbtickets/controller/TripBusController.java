@@ -8,9 +8,7 @@ import com.example.sbtickets.common.UrlConst;
 import com.example.sbtickets.dao.TripBusCustomerDao;
 import com.example.sbtickets.dao.TripBusDriverDao;
 import com.example.sbtickets.entity.*;
-import com.example.sbtickets.service.BusService;
-import com.example.sbtickets.service.LineBusService;
-import com.example.sbtickets.service.TripBusService;
+import com.example.sbtickets.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +37,12 @@ public class TripBusController {
 
     @Autowired
     TripBusCustomerDao tripBusCustomerDao;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    SendToEmailService sendToEmailService;
 
     @RequestMapping(value = UrlConst.HOMEADIM.CREATE_TRIP_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> creatTripBus(@RequestBody TripBusBean tripBusBean) {
@@ -207,6 +211,7 @@ public class TripBusController {
                 Integer currentPassengerNum = tripBus.getNumberGuest();
                 tripBus.setNumberGuest(currentPassengerNum + 1);
                 tripBusService.updateTripBus(tripBus);
+                sendToEmailService.sendToEmail(tripBusCustomerBean.getSeatBooked(),tripBusService.findTripBus(tripBusCustomerBean.getTripBusId()),customerService.getCustomerDetail(tripBusCustomerBean.getCustomerId()));
                 result.setMsg("Seats booked successfully");
                 result.setStatus(HttpStatus.OK.value());
             }
@@ -234,6 +239,4 @@ public class TripBusController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
-
-
 }
