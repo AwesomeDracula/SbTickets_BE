@@ -29,16 +29,23 @@ public class RevenueBusService implements RevenueBusImplement  {
             List<TripBus> listTripBus = tripBusRepository.findAll();
             Collections.sort(listTripBus, new SortByBusId());
             List<RevenueBusBean> result = new ArrayList<RevenueBusBean>();
-            for(int i=0;i<listTripBus.size();i++){
-                RevenueBusBean busRevenue = new RevenueBusBean();
-                busRevenue.setBusId(listTripBus.get(i).getBus().getId());
-                busRevenue.setCarNumber(listTripBus.get(i).getBus().getCarNumber());
-                busRevenue.setTripBusId(listTripBus.get(i).getId());
-                busRevenue.setNumberGuest(listTripBus.get(i).getNumberGuest());
-                busRevenue.setPriceTrip(listTripBus.get(i).getPriceTrip());
-                busRevenue.setTimeTrip(listTripBus.get(i).getTimeTrip());
-                busRevenue.setRevenue((listTripBus.get(i).getNumberGuest()*listTripBus.get(i).getPriceTrip()));
-                result.add(busRevenue);
+            int i = 0;
+            double revenue = 0;
+            while(i < listTripBus.size()-1){
+               if(listTripBus.get(i).getBus().getId() != listTripBus.get(i+1).getBus().getId()){
+                   revenue += (listTripBus.get(i).getPriceTrip()) * (listTripBus.get(i).getNumberGuest());
+                   RevenueBusBean busRevenue = new RevenueBusBean();
+                   busRevenue.setBusId(listTripBus.get(i).getBus().getId());
+                   busRevenue.setCarNumber(listTripBus.get(i).getBus().getCarNumber());
+                   busRevenue.setRevenue(revenue);
+                   result.add(busRevenue);
+                   revenue = 0;
+                   i++;
+               }
+               else{
+                   revenue += (listTripBus.get(i).getPriceTrip()) * (listTripBus.get(i).getNumberGuest());
+                   i++;
+               }
             }
             return result;
         }

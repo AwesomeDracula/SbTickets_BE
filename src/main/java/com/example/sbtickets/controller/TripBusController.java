@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 @RestController
 public class TripBusController {
@@ -53,13 +56,14 @@ public class TripBusController {
             tripBus.setPriceTrip(tripBusBean.getPriceTrip());
             tripBus = tripBusService.createTripBus(tripBus);
             if(tripBus != null){
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 TripBusDriver driverBus = new TripBusDriver();
                 driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
                 driverBus.setTripbus(tripBusService.findTripBus(tripBus.getId()));
                 driverBus.setWages((double) (lineBus.getComplexity()*60000));
                 driverBus.setDate(tripBus.getTimeTrip());
                 driverBus.setRoleCar("1");
-                driverBus.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
+                driverBus.setScrapDateTime(df.format(tripBus.getTimeTrip()));
                 tripBusDriverService.insertTripBusDriver(driverBus);
 
                 TripBusDriver assistantDriver = new TripBusDriver();
@@ -67,7 +71,7 @@ public class TripBusController {
                 assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
                 assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
                 assistantDriver.setDate(tripBus.getTimeTrip());
-                assistantDriver.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
+                assistantDriver.setScrapDateTime(df.format(tripBus.getTimeTrip()));
                 assistantDriver.setRoleCar("0");
                 tripBusDriverService.insertTripBusDriver(assistantDriver);
 
@@ -136,6 +140,7 @@ public class TripBusController {
             tripBus.setPriceTrip(tripBusBean.getPriceTrip());
             tripBusService.updateTripBus(tripBus); // update TripBus
 
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             // update lai tai xe
             TripBusDriver driverBus = new TripBusDriver();
             driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
@@ -143,6 +148,7 @@ public class TripBusController {
             driverBus.setWages((double) (lineBus.getComplexity()*60000));
             driverBus.setDate(tripBus.getTimeTrip());
             driverBus.setRoleCar("1");
+            driverBus.setScrapDateTime(df.format(tripBus.getTimeTrip()));
             tripBusDriverService.editTripBusDriver(driverBus);
 
             // update lai phu xe
@@ -152,6 +158,7 @@ public class TripBusController {
             assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
             assistantDriver.setDate(tripBus.getTimeTrip());
             assistantDriver.setRoleCar("0");
+            assistantDriver.setScrapDateTime(df.format(tripBus.getTimeTrip()));
             tripBusDriverService.editTripBusDriver(assistantDriver);
             result.setMsg("Update TripBus Sucessfull");
             result.setStatus(HttpStatus.OK.value());
@@ -193,7 +200,7 @@ public class TripBusController {
                 result.setStatus(HttpStatus.FORBIDDEN.value());
             }
             else if(tripBusDriverService.checkRoleCar(tripBusCustomerBean.getSeatBooked())){
-                result.setMsg("Number car is bookded");
+                result.setMsg("Number car is booked");
                 result.setStatus(HttpStatus.FORBIDDEN.value());
             }
             else{
@@ -219,7 +226,7 @@ public class TripBusController {
     }
 
     @RequestMapping(value = UrlConst.HOME_USER.FIND_BY_TRIPBUS, method = RequestMethod.POST)
-    public ResponseEntity<WrapperResponse> bookSeat(@RequestBody AllTripBusByLastPointBean tripBusByLastPointBean){
+    public ResponseEntity<WrapperResponse> findTripBus(@RequestBody AllTripBusByLastPointBean tripBusByLastPointBean){
         WrapperResponse result = new WrapperResponse();
         try {
             result.setMsg("Seats booked successfully");

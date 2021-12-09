@@ -1,6 +1,8 @@
 package com.example.sbtickets.service;
 
+import com.example.sbtickets.entity.TripBusCustomer;
 import com.example.sbtickets.entity.TripBusDriver;
+import com.example.sbtickets.repository.TripBusCustomerRepository;
 import com.example.sbtickets.repository.TripBusDriverRepository;
 import com.example.sbtickets.service.impl.TripBusDriverImplement;
 import org.apache.log4j.Logger;
@@ -17,6 +19,9 @@ public class TripBusDriverService implements TripBusDriverImplement {
 
     @Autowired
     TripBusDriverRepository tripBusDriverRepository;
+
+    @Autowired
+    TripBusCustomerRepository tripBusCustomerRepository;
 
     @Override
     public void insertTripBusDriver(TripBusDriver tripBusDriver) {
@@ -63,8 +68,8 @@ public class TripBusDriverService implements TripBusDriverImplement {
     @Override
     public boolean checkRoleCar(Integer roleCar) {
         try {
-            for(TripBusDriver u : tripBusDriverRepository.findAll()){
-                if(u.getRoleCar().equals(roleCar)){
+            for(TripBusCustomer u : tripBusCustomerRepository.findAll()){
+                if(u.getRoleCar() == roleCar){
                     return  true;
                 }
             }
