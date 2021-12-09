@@ -55,6 +55,7 @@ public class CustomerController {
                     customer.getFullName(),
                     customer.getCmt(),
                     customer.getAddress(),
+                    customer.getEmail(),
                     dateTime
             );
             customerService.updateCustomer(id, updatingCustomer);

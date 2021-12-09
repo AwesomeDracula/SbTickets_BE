@@ -80,6 +80,21 @@ public class UrlConst {
 
         public static final String DELETE_LINE_BUSES = HOMEADIM + "/deleteLineBuses";
 
+
+        /**
+         * API TripBusAddress HaLv
+         */
+        public static final String GET_TRIPBUS_ADDRESS = HOMEADIM + "/getTripBusAddress";
+
+        public static final String GET_TRIPBUS_ADDRESS_BY_ID = HOMEADIM + "/getTripBusAddress/{id}";
+
+        public static final String CREATE_TRIPBUS_ADDRESS = HOMEADIM + "/createTripBusAddress";
+
+        public static final String UPDATE_TRIPBUS_ADDRESS = HOMEADIM + "/updateTripBusAddress/{id}";
+
+        public static final String DELETE_TRIPBUS_ADDRESS = HOMEADIM + "/deleteTripBusAddress/{id}";
+
+        public static final String DELETE_TRIPBUS_ADDRESSES = HOMEADIM + "/deleteTripBusAddresses";
         /**
          * API find name TripBus CuongNv
          */
@@ -116,6 +131,11 @@ public class UrlConst {
 
         public static final String GET_REVENUE_BUS_BY_ID = HOMEADIM + "/getRevenueBus/{busId}";
 
+        /**
+         * API gui test gui mail
+         */
+        public static final String SEND_MAIL_CUSTOMERR = HOMEADIM + "/sendMailCustomer";
+
     }
 
     public static class HOME_USER{
@@ -139,6 +159,8 @@ public class UrlConst {
         public static final String UPDATE_ACCOUNT = HOME_USER + "/update/{id}";
 
         public static final String GET_CUSTOMER_DETAIL = HOME_USER + "/customerDetail/{id}";
+
+
     }
 
 }

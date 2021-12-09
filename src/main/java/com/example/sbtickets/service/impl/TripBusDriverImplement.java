@@ -1,4 +1,4 @@
-package com.example.sbtickets.dao.impl;
+package com.example.sbtickets.service.impl;
 
 import com.example.sbtickets.entity.TripBusDriver;
 
@@ -9,4 +9,5 @@ public interface TripBusDriverImplement {
     public void deleteTripBusDriver(Integer tripBusId);
     public void editTripBusDriver(TripBusDriver tripBusDriver);
     public List<TripBusDriver> getListBusDriver();
+    public boolean checkRoleCar(Integer roleCar);
 }

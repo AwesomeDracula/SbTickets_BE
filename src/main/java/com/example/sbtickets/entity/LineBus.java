@@ -1,7 +1,6 @@
 package com.example.sbtickets.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "line_bus")
@@ -12,10 +11,10 @@ public class LineBus {
     private Integer id;
     @OneToOne
     @JoinColumn(name = "first_id")
-    private TripbusAddress firstPoint;
+    private TripBusAddress firstPoint;
     @OneToOne
     @JoinColumn(name = "last_id")
-    private TripbusAddress lastPoint;
+    private TripBusAddress lastPoint;
     @Column(name = "length")
     private Integer length;
     @Column(name = "complexity")
@@ -25,7 +24,7 @@ public class LineBus {
 
     }
 
-    public LineBus(Integer id, TripbusAddress firstPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+    public LineBus(Integer id, TripBusAddress firstPoint, TripBusAddress lastPoint, Integer length, Integer complexity) {
         this.id = id;
         this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
@@ -33,7 +32,7 @@ public class LineBus {
         this.complexity = complexity;
     }
 
-    public LineBus(TripbusAddress firstPoint, TripbusAddress lastPoint, Integer length, Integer complexity) {
+    public LineBus(TripBusAddress firstPoint, TripBusAddress lastPoint, Integer length, Integer complexity) {
         this.firstPoint = firstPoint;
         this.lastPoint = lastPoint;
         this.length = length;
@@ -48,19 +47,19 @@ public class LineBus {
         this.id = id;
     }
 
-    public TripbusAddress getfirstPoint() {
+    public TripBusAddress getfirstPoint() {
         return firstPoint;
     }
 
-    public void setfirstPoint(TripbusAddress firstPoint) {
+    public void setfirstPoint(TripBusAddress firstPoint) {
         this.firstPoint = firstPoint;
     }
 
-    public TripbusAddress getLastPoint() {
+    public TripBusAddress getLastPoint() {
         return lastPoint;
     }
 
-    public void setLastPoint(TripbusAddress lastPoint) {
+    public void setLastPoint(TripBusAddress lastPoint) {
         this.lastPoint = lastPoint;
     }
 

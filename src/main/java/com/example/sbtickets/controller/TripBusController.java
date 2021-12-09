@@ -1,25 +1,15 @@
 package com.example.sbtickets.controller;
 
-import com.example.sbtickets.bean.AllTripBusByLastPointBean;
-import com.example.sbtickets.bean.TripBusBean;
-import com.example.sbtickets.bean.TripBusCustomerBean;
-import com.example.sbtickets.bean.WrapperResponse;
+import com.example.sbtickets.bean.*;
 import com.example.sbtickets.common.UrlConst;
-import com.example.sbtickets.dao.TripBusCustomerDao;
-import com.example.sbtickets.dao.TripBusDriverDao;
 import com.example.sbtickets.entity.*;
-import com.example.sbtickets.service.BusService;
-import com.example.sbtickets.service.LineBusService;
-import com.example.sbtickets.service.TripBusService;
+import com.example.sbtickets.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
-import java.util.List;
-
 @RestController
 public class TripBusController {
 
@@ -35,10 +25,19 @@ public class TripBusController {
     TripBusService tripBusService;
 
     @Autowired
-    TripBusDriverDao tripBusDriverDao;
+    TripBusCustomerService tripBusCustomerService;
 
     @Autowired
-    TripBusCustomerDao tripBusCustomerDao;
+    CustomerService customerService;
+
+    @Autowired
+    DriverService driverService;
+
+    @Autowired
+    SendToEmailService sendToEmailService;
+
+    @Autowired
+    TripBusDriverService tripBusDriverService;
 
     @RequestMapping(value = UrlConst.HOMEADIM.CREATE_TRIP_BUS, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> creatTripBus(@RequestBody TripBusBean tripBusBean) {
@@ -55,22 +54,22 @@ public class TripBusController {
             tripBus = tripBusService.createTripBus(tripBus);
             if(tripBus != null){
                 TripBusDriver driverBus = new TripBusDriver();
-                driverBus.setDriverId(tripBusBean.getDriverId());
-                driverBus.setTripbusId(tripBus.getId());
+                driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
+                driverBus.setTripbus(tripBusService.findTripBus(tripBus.getId()));
                 driverBus.setWages((double) (lineBus.getComplexity()*60000));
                 driverBus.setDate(tripBus.getTimeTrip());
                 driverBus.setRoleCar("1");
                 driverBus.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
-                tripBusDriverDao.insertTripBusDriver(driverBus);
+                tripBusDriverService.insertTripBusDriver(driverBus);
 
                 TripBusDriver assistantDriver = new TripBusDriver();
-                assistantDriver.setDriverId(tripBusBean.getAssistantBusId());
-                assistantDriver.setTripbusId(tripBus.getId());
+                assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
+                assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
                 assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
                 assistantDriver.setDate(tripBus.getTimeTrip());
                 assistantDriver.setScrapDateTime(tripBus.getTimeTrip().toString().substring(0,10));
                 assistantDriver.setRoleCar("0");
-                tripBusDriverDao.insertTripBusDriver(assistantDriver);
+                tripBusDriverService.insertTripBusDriver(assistantDriver);
 
                 result.setMsg("Creat TripBus Sucessfull");
                 result.setStatus(HttpStatus.OK.value());
@@ -92,7 +91,7 @@ public class TripBusController {
         WrapperResponse result = new WrapperResponse();
         try {
             tripBusService.deleteTripBus(id);
-            tripBusDriverDao.deleteTripBusDriver(id);
+            tripBusDriverService.deleteTripBusDriver(id);
             result.setMsg("Delete TripBus Sucessfull");
             result.setStatus(HttpStatus.OK.value());
         }
@@ -139,23 +138,21 @@ public class TripBusController {
 
             // update lai tai xe
             TripBusDriver driverBus = new TripBusDriver();
-            driverBus.setDriverId(tripBusBean.getDriverId());
-            driverBus.setTripbusId(tripBus.getId());
+            driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
+            driverBus.setTripbus(tripBusService.findTripBus(tripBus.getId()));
             driverBus.setWages((double) (lineBus.getComplexity()*60000));
             driverBus.setDate(tripBus.getTimeTrip());
             driverBus.setRoleCar("1");
-            driverBus.setTripbusId(tripBusBean.getTripBusId());
-            tripBusDriverDao.editTripBusDriver(driverBus);
+            tripBusDriverService.editTripBusDriver(driverBus);
 
             // update lai phu xe
             TripBusDriver assistantDriver = new TripBusDriver();
-            assistantDriver.setDriverId(tripBusBean.getAssistantBusId());
-            assistantDriver.setTripbusId(tripBus.getId());
+            assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getAssistantBusId()));
+            assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
             assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
             assistantDriver.setDate(tripBus.getTimeTrip());
             assistantDriver.setRoleCar("0");
-            assistantDriver.setTripbusId(tripBusBean.getTripBusId());
-            tripBusDriverDao.editTripBusDriver(assistantDriver);
+            tripBusDriverService.editTripBusDriver(assistantDriver);
             result.setMsg("Update TripBus Sucessfull");
             result.setStatus(HttpStatus.OK.value());
         }
@@ -176,7 +173,7 @@ public class TripBusController {
             result.setStatus(HttpStatus.OK.value());
             HashMap<String, Object> listData = new HashMap<>();
             listData.put("listTripBus", tripBusService.listTripBus());
-            listData.put("listTripBusDriver", tripBusDriverDao.getListBusDriver());
+            listData.put("listTripBusDriver", tripBusDriverService.getListBusDriver());
             result.setBody(listData);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
@@ -195,18 +192,20 @@ public class TripBusController {
                 result.setMsg("This trip bus is full of guests");
                 result.setStatus(HttpStatus.FORBIDDEN.value());
             }
-            if(tripBusService.checkIfCustomerHadTicket(tripBusCustomerBean.getTripBusId(), tripBusCustomerBean.getCustomerId())){
-                result.setMsg("This customer has already booked 1 ticket in this trip bus");
+            else if(tripBusDriverService.checkRoleCar(tripBusCustomerBean.getSeatBooked())){
+                result.setMsg("Number car is bookded");
                 result.setStatus(HttpStatus.FORBIDDEN.value());
-            } else {
+            }
+            else{
                 TripBusCustomer newSeat = new TripBusCustomer();
-                newSeat.setTripbusId(tripBusCustomerBean.getTripBusId());
-                newSeat.setCustomerId(tripBusCustomerBean.getCustomerId());
+                newSeat.setTripbus(tripBusService.findTripBus(tripBusCustomerBean.getTripBusId()));
+                newSeat.setCustomer(customerService.getCustomerDetail(tripBusCustomerBean.getCustomerId()));
                 newSeat.setRoleCar(tripBusCustomerBean.getSeatBooked());
-                tripBusCustomerDao.insertTripBusCustomer(newSeat);
+                tripBusCustomerService.insertTripBusCustomer(newSeat);
                 Integer currentPassengerNum = tripBus.getNumberGuest();
                 tripBus.setNumberGuest(currentPassengerNum + 1);
                 tripBusService.updateTripBus(tripBus);
+                sendToEmailService.sendToEmail(tripBusCustomerBean.getSeatBooked(),tripBusService.findTripBus(tripBusCustomerBean.getTripBusId()),customerService.getCustomerDetail(tripBusCustomerBean.getCustomerId()));
                 result.setMsg("Seats booked successfully");
                 result.setStatus(HttpStatus.OK.value());
             }
@@ -225,7 +224,7 @@ public class TripBusController {
         try {
             result.setMsg("Seats booked successfully");
             result.setStatus(HttpStatus.OK.value());
-            result.setBody(tripBusService.findByFirtLastPointObject(tripBusByLastPointBean));
+            result.setBody(tripBusCustomerService.findByFirtLastPointObject(tripBusByLastPointBean));
         } catch (Exception ex){
             logger.error(ex.getMessage());
             result.setMsg(ex.getMessage());
@@ -234,6 +233,4 @@ public class TripBusController {
         }
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
-
-
 }

@@ -5,7 +5,7 @@ import com.example.sbtickets.bean.WagesDriverBean;
 import com.example.sbtickets.bean.WagesTimeBean;
 import com.example.sbtickets.bean.WrapperResponse;
 import com.example.sbtickets.common.UrlConst;
-import com.example.sbtickets.dao.WagesDriverDao;
+import com.example.sbtickets.service.TripBusCustomerService;
 import com.example.sbtickets.service.TripBusService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,17 @@ public class StatisticalController {
     private static final Logger logger = Logger.getLogger(StatisticalController.class);
 
     @Autowired
-    WagesDriverDao wagesDriverDao;
+    TripBusService tripBusService;
+
 
     @Autowired
-    TripBusService tripBusService;
+    TripBusCustomerService tripBusCustomerService;
 
     @RequestMapping(value = UrlConst.HOMEADIM.GET_WAGES_DRIVER, method = RequestMethod.POST)
     public ResponseEntity<WrapperResponse> getListWages(@RequestBody WagesTimeBean wagesTimeBean) {
         WrapperResponse result = new WrapperResponse();
         try {
-            List<WagesDriverBean> listData = wagesDriverDao.getList(wagesTimeBean.getId(), wagesTimeBean.getScrapTime());
+            List<WagesDriverBean> listData = tripBusCustomerService.getListWagesDriver(wagesTimeBean.getId(), wagesTimeBean.getScrapTime());
             result.setStatus(HttpStatus.OK.value());
             result.setBody(listData);
         }
@@ -48,7 +49,7 @@ public class StatisticalController {
         try {
             result.setMsg("get CountTrip booked successfully");
             result.setStatus(HttpStatus.OK.value());
-            result.setBody(tripBusService.getCountTripBusForMonth());
+            result.setBody(tripBusCustomerService.getCountTripBusForMonth());
         } catch (Exception ex){
             logger.error(ex.getMessage());
             result.setMsg(ex.getMessage());
@@ -64,7 +65,7 @@ public class StatisticalController {
         try {
             result.setMsg("Get ListCustomer booked successfully");
             result.setStatus(HttpStatus.OK.value());
-            result.setBody(tripBusService.getListTripBusByCustomer(id));
+            result.setBody(tripBusCustomerService.getListTripBusByCustomer(id));
         } catch (Exception ex){
             logger.error(ex.getMessage());
             result.setMsg(ex.getMessage());

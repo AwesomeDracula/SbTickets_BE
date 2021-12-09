@@ -1,55 +1,75 @@
 package com.example.sbtickets.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "tripbus_driver")
-public class TripBusDriver implements Serializable {
+@Table(name = "mtripbus_driver")
+public class TripBusDriver implements Serializable{
     @Id
-    @Column(name = "tripbus_id")
-    private Integer tripbusId;
-    @Id
-    @Column(name = "driver_id")
-    private Integer driverId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name="tripbus_id", nullable=false)
+    private TripBus tripbus;
+    @ManyToOne
+    @JoinColumn(name="driver_id", nullable=false)
+    private Driver driver;
     @Column(name = "role_car")
     private String roleCar;
     @Column(name = "wages")
     private Double  wages;
     @Column(name = "date")
     private Date date;
-    @Column(name = "scrap_dateTime")
+    @Column(name = "scrap_date_time")
     private String scrapDateTime;
 
     public TripBusDriver() {
     }
 
-    public String getScrapDateTime() {
-        return scrapDateTime;
-    }
-
-    public void setScrapDateTime(String scrapDateTime) {
+    public TripBusDriver(Integer id, TripBus tripbus, Driver driver, String roleCar, Double wages, Date date, String scrapDateTime) {
+        this.id = id;
+        this.tripbus = tripbus;
+        this.driver = driver;
+        this.roleCar = roleCar;
+        this.wages = wages;
+        this.date = date;
         this.scrapDateTime = scrapDateTime;
     }
 
-    public Integer getTripbusId() {
-        return tripbusId;
+    public TripBusDriver(TripBus tripbus, Driver driver, String roleCar, Double wages, Date date, String scrapDateTime) {
+        this.tripbus = tripbus;
+        this.driver = driver;
+        this.roleCar = roleCar;
+        this.wages = wages;
+        this.date = date;
+        this.scrapDateTime = scrapDateTime;
     }
 
-    public void setTripbusId(Integer tripbusId) {
-        this.tripbusId = tripbusId;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getDriverId() {
-        return driverId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setDriverId(Integer driverId) {
-        this.driverId = driverId;
+    public TripBus getTripbus() {
+        return tripbus;
+    }
+
+    public void setTripbus(TripBus tripbus) {
+        this.tripbus = tripbus;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public String getRoleCar() {
@@ -74,5 +94,13 @@ public class TripBusDriver implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getScrapDateTime() {
+        return scrapDateTime;
+    }
+
+    public void setScrapDateTime(String scrapDateTime) {
+        this.scrapDateTime = scrapDateTime;
     }
 }

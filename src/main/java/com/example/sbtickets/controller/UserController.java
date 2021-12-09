@@ -83,7 +83,7 @@ public class UserController{
                 user = userService.loadUserByUsername(user.getUserName());
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Date dateTime = df.parse(userbean.getBirthDay());
-                if(customerService.addCustomer(new Customer(userbean.getUserName(), userbean.getCmt(), userbean.getAddress(), dateTime, user))){
+                if(customerService.addCustomer(new Customer(userbean.getUserName(), userbean.getCmt(), userbean.getAddress(), dateTime,userbean.getEmail(),  user))){
                     result.setMsg("Create Account SuccessFull");
                     result.setStatus(HttpStatus.OK.value());
                     return  new ResponseEntity<WrapperResponse>(result, HttpStatus.OK);
