@@ -192,6 +192,10 @@ public class TripBusController {
                 result.setMsg("This trip bus is full of guests");
                 result.setStatus(HttpStatus.FORBIDDEN.value());
             }
+            else if(tripBusDriverService.checkRoleCar(tripBusCustomerBean.getSeatBooked())){
+                result.setMsg("Number car is bookded");
+                result.setStatus(HttpStatus.FORBIDDEN.value());
+            }
             else{
                 TripBusCustomer newSeat = new TripBusCustomer();
                 newSeat.setTripbus(tripBusService.findTripBus(tripBusCustomerBean.getTripBusId()));

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -57,5 +58,21 @@ public class TripBusDriverService implements TripBusDriverImplement {
             logger.error(ex.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public boolean checkRoleCar(Integer roleCar) {
+        try {
+            for(TripBusDriver u : tripBusDriverRepository.findAll()){
+                if(u.getRoleCar().equals(roleCar)){
+                    return  true;
+                }
+            }
+
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return false;
     }
 }

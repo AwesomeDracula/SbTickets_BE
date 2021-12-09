@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-
 public class JwtService {
     private static final Logger logger = LogManager.getLogger(JwtService.class);
     // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
