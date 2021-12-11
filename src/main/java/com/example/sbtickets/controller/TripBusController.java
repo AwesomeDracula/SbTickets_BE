@@ -71,7 +71,7 @@ public class TripBusController {
                 tripBusDriverService.insertTripBusDriver(driverBus);
 
                 TripBusDriver assistantDriver = new TripBusDriver();
-                assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
+                assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getAssistantBusId()));
                 assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
                 assistantDriver.setWages((double) (lineBus.getComplexity()*lineBus.getLength()*10000));
                 assistantDriver.setDate(tripBus.getTimeTrip());
@@ -154,7 +154,7 @@ public class TripBusController {
             TripBusDriver driverBus = new TripBusDriver();
             driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
             driverBus.setTripbus(tripBusService.findTripBus(tripBus.getId()));
-            driverBus.setWages((double) (lineBus.getComplexity()*60000));
+            driverBus.setWages((double) (lineBus.getComplexity()*lineBus.getLength()*20000));
             driverBus.setDate(tripBus.getTimeTrip());
             driverBus.setRoleCar("1");
             driverBus.setScrapDateTime(df.format(tripBus.getTimeTrip()));
@@ -164,7 +164,7 @@ public class TripBusController {
             TripBusDriver assistantDriver = new TripBusDriver();
             assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getAssistantBusId()));
             assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
-            assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
+            assistantDriver.setWages((double) (lineBus.getComplexity()*lineBus.getLength()*10000));
             assistantDriver.setDate(tripBus.getTimeTrip());
             assistantDriver.setRoleCar("0");
             assistantDriver.setScrapDateTime(df.format(tripBus.getTimeTrip()));
