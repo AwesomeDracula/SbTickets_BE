@@ -85,9 +85,7 @@ public class TripBusCustomerService implements TripBusCustomerImplement {
     public List<CountTripBusForMonth> getCountTripBusForMonth() {
         List<CountTripBusForMonth> listData = new ArrayList<>();
         try {
-            Date date = new Date();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String momentTime = "01";
             Integer count1 = 0;
             Integer count2 = 0;
             Integer count3 = 0;
@@ -95,7 +93,7 @@ public class TripBusCustomerService implements TripBusCustomerImplement {
             Integer count5 = 0;
             for(TripBus item : tripBusRepository.findAll()){
                 String dateTime = df.format(item.getTimeTrip());
-                if(Integer.valueOf(dateTime.substring(5,7)) == Integer.valueOf(momentTime)){
+                if(Integer.valueOf(dateTime.substring(5,7)) == Integer.valueOf(java.time.LocalDate.now().getMonthValue())){
                     if(item.getTimeTrip().getDate() >= 1 && item.getTimeTrip().getDate() <= 7){
                         count1++;
                     }
@@ -108,7 +106,7 @@ public class TripBusCustomerService implements TripBusCustomerImplement {
                     if(item.getTimeTrip().getDate() >= 23 && item.getTimeTrip().getDate() <= 28){
                         count4++;
                     }
-                    else if(item.getTimeTrip().getDay() > 28){
+                    if(item.getTimeTrip().getDate() > 28){
                         count5++;
                     }
                 }
@@ -181,5 +179,15 @@ public class TripBusCustomerService implements TripBusCustomerImplement {
             logger.error(ex);
         }
         return null;
+    }
+
+    @Override
+    public void deleteTripBusCustomerById(Integer TripBusId) {
+        try {
+            tripBusCustomerRepository.deleteTripBusCustomerById(TripBusId);
+        }
+        catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
     }
 }

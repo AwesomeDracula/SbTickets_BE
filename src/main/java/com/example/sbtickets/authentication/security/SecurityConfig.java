@@ -38,11 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
     protected void configure(HttpSecurity http) throws Exception {
         // Disable crsf cho đường dẫn /Sbtickets/**
         http.csrf().ignoringAntMatchers(UrlConst.HOME + "/**");
         http.authorizeRequests().antMatchers(UrlConst.HOME + "/login**").permitAll();
         http.authorizeRequests().antMatchers(UrlConst.HOME_USER.HOME_USER + "/**").permitAll();
+        // bean restServicesEntryPoint sẽ xử lý những request chưa được xác thực.
         http.antMatcher(UrlConst.HOME + "/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, UrlConst.HOMEADIM.HOMEADIM + "/**").access("hasRole('ROLE_ADMIN')")

@@ -12,4 +12,5 @@ public interface TripBusCustomerImplement {
     public List<TripBusByCusomer> getListTripBusByCustomer(Integer id);
     public void insertTripBusCustomer(TripBusCustomer tripBusCustomer);
     public List<WagesDriverBean> getListWagesDriver(Integer driverId, String scrapTime);
+    public void deleteTripBusCustomerById(Integer TripBusId);
 }

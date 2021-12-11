@@ -10,6 +10,8 @@ import java.util.List;
 
 
 public interface TripBusDriverRepository extends JpaRepository<TripBusDriver, Integer> {
+    @Transactional
+    @Modifying
     @Query(
             "delete from TripBusDriver u where u.tripbus.id = ?1"
     )

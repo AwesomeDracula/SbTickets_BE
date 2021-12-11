@@ -10,17 +10,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-//import vn.com.nsmv.entity.User;
+// JwtService dùng để tạo và validate Token
 
 @Component
 @Slf4j
 public class JwtService {
     private static final Logger logger = LogManager.getLogger(JwtService.class);
-    // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
+    // Đoạn JWT_SECRET này là bảo mật, chỉ có phía server biết
     private final String JWT_SECRET = "JWT_SECRET_1584547915594";
 
     //Thời gian có hiệu lực của chuỗi jwt
-
     private final long JWT_EXPIRATION = 288000000;
 
     // Tạo ra jwt từ thông tin user

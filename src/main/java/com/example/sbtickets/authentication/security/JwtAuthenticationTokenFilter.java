@@ -35,12 +35,9 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
             String username = jwtService.getUserIdFromJWT(authToken);
             com.example.sbtickets.entity.User user = userService.loadUserByUsername(username);
             if (user != null) {
-                boolean enabled = true;
-                boolean accountNonExpired = true;
-                boolean credentialsNonExpired = true;
-                boolean accountNonLocked = true;
-                UserDetails userDetail = new User(username, user.getPassword(), enabled, accountNonExpired,
-                        credentialsNonExpired, accountNonLocked, user.getAuthorities());
+                UserDetails userDetail = new User(username, user.getPassword(), true, true,
+                        true, true, user.getAuthorities());
+                // xac nhan thong tin dang nhap la dung authentication
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
                         null, userDetail.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));

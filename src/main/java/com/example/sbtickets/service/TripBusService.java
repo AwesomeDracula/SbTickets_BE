@@ -39,9 +39,9 @@ public class TripBusService implements TripBusImplement {
     }
 
     @Override
-    public void deleteTripBus(Integer tripBusId) {
+    public void deleteTripBus(List<Integer> ids) {
         try {
-            tripBusRepository.deleteById(tripBusId);
+            tripBusRepository.deleteAllById(ids);
         }
         catch (Exception ex){
             logger.error(ex.getMessage(), ex);
@@ -90,26 +90,4 @@ public class TripBusService implements TripBusImplement {
         }
         return null;
     }
-
-    @Override
-    public List<TripBus> findByFirtLastPoint(AllTripBusByLastPointBean allTripBusByLastPointBean) {
-        try{
-            List<TripBus> listTripBus = new ArrayList<>();
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-            for(TripBus item : tripBusRepository.findAll()){
-                String dateTime = df.format(item.getTimeTrip());
-                if(item.getLineBus().getfirstPoint().getId() == allTripBusByLastPointBean.getFirstPoint() && item.getLineBus().getLastPoint().getId() == allTripBusByLastPointBean.getLastPoint() && dateTime.equals(allTripBusByLastPointBean.getDateTime())){
-                    listTripBus.add(item);
-                }
-            }
-            return listTripBus;
-        }
-        catch (Exception ex){
-            logger.error(ex.getMessage());
-        }
-        return null;
-    }
-
-
 }

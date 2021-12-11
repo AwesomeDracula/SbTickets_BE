@@ -11,10 +11,9 @@ import java.util.List;
 
 public interface TripBusImplement {
     public TripBus createTripBus(TripBus tripBus);
-    public void deleteTripBus(Integer tripBusId);
+    public void deleteTripBus(List<Integer> ids);
     public void updateTripBus(TripBus tripBus);
     public TripBus findTripBusById(Integer id);
     public List<TripBus> listTripBus();
     public TripBus findTripBus(Integer id);
-    public List<TripBus> findByFirtLastPoint(AllTripBusByLastPointBean allTripBusByLastPointBean);
 }

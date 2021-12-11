@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
 @RestController
 public class TripBusController {
 
@@ -46,6 +49,7 @@ public class TripBusController {
     public ResponseEntity<WrapperResponse> creatTripBus(@RequestBody TripBusBean tripBusBean) {
         WrapperResponse result = new WrapperResponse();
         try {
+            tripBusBean.setNumberGuest(0);
             Bus bus = busService.findBus(tripBusBean.getBusId());
             LineBus lineBus = lineBusService.getLineBusById(tripBusBean.getLineBusId());
             TripBus tripBus = new TripBus();
@@ -60,7 +64,7 @@ public class TripBusController {
                 TripBusDriver driverBus = new TripBusDriver();
                 driverBus.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
                 driverBus.setTripbus(tripBusService.findTripBus(tripBus.getId()));
-                driverBus.setWages((double) (lineBus.getComplexity()*60000));
+                driverBus.setWages((double) (lineBus.getComplexity()*lineBus.getLength()*20000));
                 driverBus.setDate(tripBus.getTimeTrip());
                 driverBus.setRoleCar("1");
                 driverBus.setScrapDateTime(df.format(tripBus.getTimeTrip()));
@@ -69,7 +73,7 @@ public class TripBusController {
                 TripBusDriver assistantDriver = new TripBusDriver();
                 assistantDriver.setDriver(driverService.getDriverById(tripBusBean.getDriverId()));
                 assistantDriver.setTripbus(tripBusService.findTripBus(tripBus.getId()));
-                assistantDriver.setWages((double) (lineBus.getComplexity()*30000));
+                assistantDriver.setWages((double) (lineBus.getComplexity()*lineBus.getLength()*10000));
                 assistantDriver.setDate(tripBus.getTimeTrip());
                 assistantDriver.setScrapDateTime(df.format(tripBus.getTimeTrip()));
                 assistantDriver.setRoleCar("0");
@@ -90,12 +94,16 @@ public class TripBusController {
         return new ResponseEntity<WrapperResponse>(result, HttpStatus.valueOf(HttpStatus.OK.value()));
     }
 
-    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_TRIP_BUS, method = RequestMethod.PUT)
-    public ResponseEntity<WrapperResponse> deleteTripBus(@PathVariable("id") Integer id) {
+    @RequestMapping(value = UrlConst.HOMEADIM.DELETE_TRIP_BUS, method = RequestMethod.POST)
+    public ResponseEntity<WrapperResponse> deleteTripBus(@RequestBody Integer[] ids) {
         WrapperResponse result = new WrapperResponse();
         try {
-            tripBusService.deleteTripBus(id);
-            tripBusDriverService.deleteTripBusDriver(id);
+            List<Integer> list = Arrays.asList(ids);
+            for(Integer id: list){
+                tripBusCustomerService.deleteTripBusCustomerById(id);
+                tripBusDriverService.deleteTripBusDriver(id);
+            }
+            tripBusService.deleteTripBus(list);
             result.setMsg("Delete TripBus Sucessfull");
             result.setStatus(HttpStatus.OK.value());
         }
@@ -129,6 +137,7 @@ public class TripBusController {
     public ResponseEntity<WrapperResponse> editTripBus(@RequestBody TripBusBean tripBusBean) {
         WrapperResponse result = new WrapperResponse();
         try {
+            if(tripBusBean.getNumberGuest() == null)  tripBusBean.setNumberGuest(0);
             Bus bus = busService.findBus(tripBusBean.getBusId());
             LineBus lineBus = lineBusService.getLineBusById(tripBusBean.getLineBusId());
             TripBus tripBus = new TripBus();

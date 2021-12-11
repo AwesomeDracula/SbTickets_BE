@@ -46,8 +46,6 @@ public class UrlConst {
 
         public static final String DELETE_DRIVERS = HOMEADIM + "/deleteDrivers";
 
-        public static final String EXPORT_EXCEL_ALL_DRIVER = HOMEADIM + "/driver/excelAll";
-
         /**
          * API getAllBus SonPK
          */
@@ -102,7 +100,7 @@ public class UrlConst {
 
         public static final String EDIT_TRIP_BUS = HOMEADIM + "/editTripBus";
 
-        public static final String DELETE_TRIP_BUS = HOMEADIM + "/deleteTripBus/{id}";
+        public static final String DELETE_TRIP_BUS = HOMEADIM + "/deleteTripBus";
 
         public static final String FIND_TRIP_BUS = HOMEADIM + "/findTripBus/{id}";
 
@@ -131,10 +129,6 @@ public class UrlConst {
 
         public static final String GET_REVENUE_BUS_BY_ID = HOMEADIM + "/getRevenueBus/{busId}";
 
-        /**
-         * API gui test gui mail
-         */
-        public static final String SEND_MAIL_CUSTOMERR = HOMEADIM + "/sendMailCustomer";
 
     }
 
@@ -144,8 +138,6 @@ public class UrlConst {
         public static final String GET_USER = HOME_USER + "/getUser";
 
         public static final String BOOK_SEAT = HOME_USER + "/bookSeat";
-
-        public static final String CHANGE_SEAT = HOME_USER + "/changeSeat";
 
         public static final String FIND_BY_TRIPBUS = HOME_USER + "/findByTripBus";
 
@@ -160,7 +152,5 @@ public class UrlConst {
 
         public static final String GET_CUSTOMER_DETAIL = HOME_USER + "/customerDetail/{id}";
 
-
     }
-
 }

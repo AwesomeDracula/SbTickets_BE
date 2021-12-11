@@ -55,7 +55,7 @@ public class SendToEmailService implements SendToEmailImplement {
                     "  <td style=\"padding: 20px 0 30px 0;\" \n" +
                     "   <br><i>Thank you. You have successfully booked your ticket</i><br>" +
                     "<br> TripCode: " + tripBus.getId() + "<br> TimeTrip: " +  tripBus.getTimeTrip() + "<br> CarNumber: " + tripBus.getBus().getCarNumber()
-                            + " - Color: " + tripBus.getBus().getColor() + "<br> Please arrive 30 minutes in advance. Thanks" + "<br> \n" +
+                            + " - Color: " + tripBus.getBus().getColor() + " " + "<br> Number Seat: " + roleCar + "<br> Please arrive 30 minutes in advance. Thanks" + "<br> \n" +
                     "  </td>\n" +
                     " </tr>\n" +
                     "</table>", true);
